@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Created apps
+    'inventory.apps.InventoryConfig',
+
     # 3rd Party shit
     'sorl.thumbnail',
 ]
