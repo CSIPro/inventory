@@ -14,6 +14,10 @@ $ pip install -r requirements.txt
 ```
 Ésto es para instalar las dependencias en un ambiente virtual. Es opcional, si quieren instalar todo global, ahí está el último comando. Si van a agregar otra cosa, háganlo en otro branch y agreguenlo a ```requirements.txt```
 
+### Superuser
+    username: admin
+    pw: cebiche123
+
 ## Workflow
 ```
 $ git fetch/pull
