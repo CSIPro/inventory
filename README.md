@@ -1,15 +1,15 @@
 # CSinventory
 
 ## Requerimientos
- * Django 1.10
+ * Django >= 1.10
 
 ## Instalación
 Den sus clones y sus ward y luego:
 ```
 $ cd /inventory
 $ pip install virtualenv
-$ python -m venv myvenv
-$ venv/Scripts/activate
+$ virtualenv myvenv
+$ source venv/Scripts/activate
 $ pip install -r requirements.txt
 ```
 Ésto es para instalar las dependencias en un ambiente virtual. Es opcional, si quieren instalar todo global, ahí está el último comando. Si van a agregar otra cosa, háganlo en otro branch y agreguenlo a ```requirements.txt```
