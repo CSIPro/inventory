@@ -11,7 +11,7 @@ def index(request):
     return render(request, 'inventory/item_list.html', context=context_dict)
 
 
-# pk = animal_id
+# pk = item_id
 def detail(request, pk):
     try:
         item = Item.objects.get(pk=pk)
