@@ -1,16 +1,12 @@
 {% extends 'inventory/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-Item list
-{% endblock %}
-
 {% block body_block %}
-    <h1>Item List</h1>
+    <h1>CSIPro Inventory</h1>
     {% if items %}
         <ul>
             {% for item in items %}
-                <li>{{ item.item_name }}</li>
+                <li>{{ item.item_name }} -- Disponibles: {{ item.available_count }}</li>
             {% endfor %}
         </ul>
     {% endif %}
