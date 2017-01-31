@@ -41,7 +41,7 @@ class ItemImages(models.Model):
     img = models.ImageField(upload_to=item_directory_path)  # uploads to MEDIA/item_id/<img_path>
 
     def __str__(self):
-        return self.img.url
+        return self.item.item_name
 
 
 class ItemBorrowed(models.Model):
