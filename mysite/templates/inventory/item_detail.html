@@ -1,0 +1,14 @@
+{% extends 'inventory/base.html' %}
+
+{% block body_block %}
+    {% if item %}
+
+    <h1>{{ item.item_name }}</h1>
+        <ul>
+            <li>Description: {{ item.item_description }}</li>
+            <li>Available: {{ item.available_count }}</li>
+            <li>Currently borrowed: {{ item.current_borrowed }}</li>
+            <li>Owner: {{ item.item_owner.owner_name }}</li>
+        </ul>
+    {% endif %}
+{% endblock %}
