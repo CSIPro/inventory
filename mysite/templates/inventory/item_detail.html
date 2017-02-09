@@ -10,5 +10,16 @@
             <li>Currently borrowed: {{ item.current_borrowed }}</li>
             <li>Owner: {{ item.item_owner.owner_name }}</li>
         </ul>
+
+        <div id="aniimated-thumbnials">
+            {% for img in item.itemimages_set.all %}
+
+                <a href="{{ img.img.url }}">
+                    <img src="{{ img.img.url }}" alt="">
+                </a>
+
+            {% endfor %}
+        </div>
+
     {% endif %}
 {% endblock %}
