@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'inventory.apps.InventoryConfig',
 
     # 3rd Party shit
-    'sorl.thumbnail',
+    'easy_thumbnails',
     'debug_toolbar',
 ]
 
