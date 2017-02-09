@@ -1,4 +1,5 @@
 {% extends 'inventory/base.html' %}
+{% load thumbnail %}
 
 {% block body_block %}
     {% if item %}
@@ -15,7 +16,7 @@
             {% for img in item.itemimages_set.all %}
 
                 <a href="{{ img.img.url }}">
-                    <img src="{{ img.img.url }}" alt="">
+                    <img src="{% thumbnail img.img 100x100 crop %}" alt="" border="5" style="border-color: black">
                 </a>
 
             {% endfor %}

@@ -3,7 +3,6 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 # 3rd party
-from sorl.thumbnail import ImageField
 
 
 # CSI, Unison, Erick, etc.
