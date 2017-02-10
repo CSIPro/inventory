@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Item, ItemBorrowed
 
@@ -24,7 +25,9 @@ def detail(request, pk):
 
     return render(request, 'inventory/item_detail.html', context)
 
+
 # pk = item_id
+@login_required()
 def borrow(request, pk):
     try:
         item = Item.objects.get(pk=request.POST['item'])
@@ -43,4 +46,4 @@ def borrow(request, pk):
         borrowed = ItemBorrowed(item=item, user=request.user)
 
         borrowed.save()
-        return render(request, 'intventory/admin.html', )
+        return render(request, 'inventory/admin.html', )
