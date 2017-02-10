@@ -28,6 +28,12 @@ class Item(models.Model):
         return '{} - Disponibles:{}'.format(self.item_name, self.available_count)
 
 
+# Each individual item (will have it's own ID and shit.)
+class IndividualItem(models.Model):
+    item = models.ForeignKey(Item)
+    is_borrowed = models.BooleanField(default=False)
+
+
 def item_directory_path(instance, filename):
         # for imges be uploaded to MEDIA_ROOT/item_<id>/<filename>
         return 'item_{0}/{1}'.format(instance.item.id, filename)
@@ -50,4 +56,4 @@ class ItemBorrowed(models.Model):
     date_borrowed = models.DateField(auto_now=True)
 
     def __str__(self):
-        return '{} se llevo un/a {}'.format(self.user, self.item.item_name)
+        return '{} se llevo un/a {} con id={}'.format(self.user, self.item.item_name, self.item.id)

@@ -27,7 +27,6 @@ def detail(request, pk):
 
 
 # pk = item_id
-@login_required()
 def borrow(request, pk):
     try:
         item = Item.objects.get(pk=request.POST['item'])
@@ -46,4 +45,4 @@ def borrow(request, pk):
         borrowed = ItemBorrowed(item=item, user=request.user)
 
         borrowed.save()
-        return render(request, 'inventory/admin.html', )
+        return render(request, 'inventory/admin.html', {'item': item})

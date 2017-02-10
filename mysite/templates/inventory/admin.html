@@ -2,6 +2,10 @@
 
 {% block body_block %}
 
-    <h1>Acercate al root-admin overlord Erick Delfin para qeu te de tu item.</h1>
+    <h1>Acercate al root-admin overlord Erick Delfin para qeu te de tu {{ item.item_name }}.</h1>
+
+    <ul>
+        <li>Item ID: {{ item.id }}</li>
+    </ul>
 
 {% endblock %}
