@@ -1,4 +1,5 @@
 {% extends 'inventory/base.html' %}
+{% load thumbnail %}
 
 {% block body_block %}
     {% if item %}
@@ -15,11 +16,17 @@
             {% for img in item.itemimages_set.all %}
 
                 <a href="{{ img.img.url }}">
-                    <img src="{{ img.img.url }}" alt="">
+                    <img src="{% thumbnail img.img 100x100 crop %}" alt="" border="5" style="border-color: black">
                 </a>
 
             {% endfor %}
         </div>
+
+    <form action="{% url 'inventory:borrow' item.id %}" method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="item" value="{{ item.id }}" />
+        <button type="submit">Borrow this item</button>
 
     {% endif %}
 {% endblock %}

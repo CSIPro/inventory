@@ -11,4 +11,7 @@ urlpatterns = [
     # /inventory/<item_id>
     url(r'^(?P<pk>[0-9]+)/$', views.detail, name='detail'),
 
+    # /inventory/<item_id>/borrow/
+    url(r'^(?P<pk>[0-9]+)/borrow/$', views.borrow, name='borrow'),
+
 ]
