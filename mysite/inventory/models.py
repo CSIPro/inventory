@@ -26,9 +26,10 @@ class Item(models.Model):
     item_owner = models.ForeignKey(Owner)
 
     # Custom save method to create Individual Item object on Item save.
-    def save(self):
+    def save(self, **kwargs):
         if self.pk is not None:
             orig = Item.objects.get(pk=self.pk)
+            print('it went through here.')
 
             new = IndividualItem(item=orig)
             new.save()
