@@ -40,9 +40,13 @@ def borrow(request, pk):
 
         item.save()
 
+        # Change the IndividualItem's isBorrowed to true
+        unborrowed_individual_item = item.individualitem_set.filter(is_borrowed=False)[0]
+        unborrowed_individual_item.is_borrowed = False
+        unborrowed_individual_item.save()
 
         # Creating new ItemBorrowed object
         borrowed = ItemBorrowed(item=item, user=request.user)
-
         borrowed.save()
+
         return render(request, 'inventory/admin.html', {'item': item})
