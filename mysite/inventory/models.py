@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.db.models.signals import post_save
 
 # 3rd party
 
@@ -24,16 +23,6 @@ class Item(models.Model):
     available_count = models.PositiveIntegerField()
     current_borrowed = models.PositiveIntegerField()
     item_owner = models.ForeignKey(Owner)
-
-    # Custom save method to create Individual Item object on Item save.
-    def save(self, **kwargs):
-        if self.pk is not None:
-            orig = Item.objects.get(pk=self.pk)
-            print('it went through here.')
-
-            new = IndividualItem(item=orig)
-            new.save()
-        super(Item, self).save()
 
     def __str__(self):
         return '{} - Disponibles:{}'.format(self.item_name, self.available_count)
@@ -71,3 +60,7 @@ class ItemBorrowed(models.Model):
 
     def __str__(self):
         return '{} se llevo un/a {} con id={}'.format(self.user, self.item.item_name, self.item.id)
+
+
+# For the IndividualItem creation.
+from .signals import create_individual_item
