@@ -42,7 +42,7 @@ def borrow(request, pk):
         unborrowed_individual_item.save()
 
         # Creating new ItemBorrowed object
-        borrowed = ItemBorrowed(item=item, user=request.user)
+        borrowed = ItemBorrowed(item=unborrowed_individual_item, user=request.user)
         borrowed.save()
 
         # Changing item's attributes
@@ -53,4 +53,4 @@ def borrow(request, pk):
 
         # TODO: validate if there are still items left to be borrowed or not.
 
-        return render(request, 'inventory/admin.html', {'item': item})
+        return render(request, 'inventory/admin.html', {'individual_item': unborrowed_individual_item})
