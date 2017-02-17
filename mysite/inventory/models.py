@@ -25,7 +25,7 @@ class Item(models.Model):
     item_owner = models.ForeignKey(Owner)
 
     def __str__(self):
-        return '{} - Disponibles:{}'.format(self.item_name, self.available_count)
+        return '{} - Disponibles:{}, Borrowed: {}'.format(self.item_name, self.available_count, self.current_borrowed)
 
 
 # Each individual item (will have it's own ID and shit.)
@@ -34,7 +34,7 @@ class IndividualItem(models.Model):
     is_borrowed = models.BooleanField(default=False)
 
     def __str__(self):
-        return '{}, Is Borrowed? {}!'.format(self.item.item_name, self.is_borrowed)
+        return '{} ..... ID: {}..... Borrowed={}.'.format(self.item.item_name, self.pk, self.is_borrowed)
 
 
 def item_directory_path(instance, filename):
