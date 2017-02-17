@@ -52,14 +52,15 @@ class ItemImages(models.Model):
         return self.item.item_name
 
 
+# Relates to IndividualItem on a 1-1 relationship.
 class ItemBorrowed(models.Model):
 
-    item = models.ForeignKey(Item)
+    item = models.OneToOneField(IndividualItem)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     date_borrowed = models.DateField(auto_now=True)
 
     def __str__(self):
-        return '{} se llevo un/a {} con id={}'.format(self.user, self.item.item_name, self.item.id)
+        return '{} se llevo un/a {} con id={}'.format(self.user, self.item.item.item_name, self.item.id)
 
 
 # For the IndividualItem creation.
