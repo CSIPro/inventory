@@ -42,7 +42,7 @@ def borrow(request, pk):
             return render(request, 'inventory/no_items.html', {'item': item})
 
         # Gets the first item that's not borrowed yet.
-        unborrowed_individual_item = item.individualitem_set.filter(is_borrowed=False)[0]
+        unborrowed_individual_item = all_unborrowed_items[0]
 
         # Change the unborrowerd to borrowed = True
         unborrowed_individual_item.is_borrowed = True
