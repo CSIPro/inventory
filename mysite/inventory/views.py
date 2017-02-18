@@ -34,15 +34,28 @@ def borrow(request, pk):
         raise Http404('Item no existe.')  # TODO: Planning on redirecting to custom 404 page in future
 
     else:
+
+        all_unborrowed_items = item.individualitem_set.filter(is_borrowed=False)
+
+        # Checks if there are any unborrowed items. If not, redirect to error page, for now. (Or can generate modal)
+        if not all_unborrowed_items:
+            return render(request, 'inventory/no_items.html', {'item': item})
+
+        # Gets the first item that's not borrowed yet.
+        unborrowed_individual_item = all_unborrowed_items[0]
+
+        # Change the unborrowerd to borrowed = True
+        unborrowed_individual_item.is_borrowed = True
+        unborrowed_individual_item.save()
+
+        # Creating new ItemBorrowed object
+        borrowed = ItemBorrowed(item=unborrowed_individual_item, user=request.user)
+        borrowed.save()
+
         # Changing item's attributes
         item.available_count -= 1
         item.current_borrowed += 1
 
         item.save()
 
-
-        # Creating new ItemBorrowed object
-        borrowed = ItemBorrowed(item=item, user=request.user)
-
-        borrowed.save()
-        return render(request, 'inventory/admin.html', {'item': item})
+        return render(request, 'inventory/admin.html', {'individual_item': unborrowed_individual_item})

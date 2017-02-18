@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.db.models.signals import post_save
 
 # 3rd party
 
@@ -25,17 +24,8 @@ class Item(models.Model):
     current_borrowed = models.PositiveIntegerField()
     item_owner = models.ForeignKey(Owner)
 
-    # Custom save method to create Individual Item object on Item save.
-    def save(self):
-        if self.pk is not None:
-            orig = Item.objects.get(pk=self.pk)
-
-            new = IndividualItem(item=orig)
-            new.save()
-        super(Item, self).save()
-
     def __str__(self):
-        return '{} - Disponibles:{}'.format(self.item_name, self.available_count)
+        return '{} - Disponibles:{}, Borrowed: {}'.format(self.item_name, self.available_count, self.current_borrowed)
 
 
 # Each individual item (will have it's own ID and shit.)
@@ -44,7 +34,7 @@ class IndividualItem(models.Model):
     is_borrowed = models.BooleanField(default=False)
 
     def __str__(self):
-        return '{}, Is Borrowed? {}!'.format(self.item.item_name, self.is_borrowed)
+        return '{} ..... ID: {}..... Borrowed={}.'.format(self.item.item_name, self.pk, self.is_borrowed)
 
 
 def item_directory_path(instance, filename):
@@ -62,11 +52,16 @@ class ItemImages(models.Model):
         return self.item.item_name
 
 
+# Relates to IndividualItem on a 1-1 relationship.
 class ItemBorrowed(models.Model):
 
-    item = models.ForeignKey(Item)
+    item = models.OneToOneField(IndividualItem)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     date_borrowed = models.DateField(auto_now=True)
 
     def __str__(self):
-        return '{} se llevo un/a {} con id={}'.format(self.user, self.item.item_name, self.item.id)
+        return '{} se llevo un/a {} con id={}'.format(self.user, self.item.item.item_name, self.item.id)
+
+
+# For the IndividualItem creation.
+from .signals import create_individual_item

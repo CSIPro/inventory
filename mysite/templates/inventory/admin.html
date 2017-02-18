@@ -2,10 +2,13 @@
 
 {% block body_block %}
 
-    <h1>Acercate al root-admin overlord Erick Delfin para qeu te de tu {{ item.item_name }}.</h1>
+    <h1>Acercate al root-admin overlord Erick Delfin para que te de tu {{ individual_item.item.item_name }}.</h1>
 
-    <ul>
-        <li>Item ID: {{ item.id }}</li>
-    </ul>
+        <ul>
+            <li>Item ID: {{ individual_item.id }}</li>
+        </ul>
+
+    {# Temporary #}
+    <a href="{% url 'inventory:index' %}">Go back to Inventory index.</a>
 
 {% endblock %}
