@@ -59,3 +59,7 @@ def borrow(request, pk):
         item.save()
 
         return render(request, 'inventory/admin.html', {'individual_item': unborrowed_individual_item})
+
+# TODO: with materializecss, I can make cards with items and at the end add badges/labels
+# (green if still available, yellow if little available, and red if non, etc). I can to so
+# by creating, for example, def less_than_half() func in model, etc.
