@@ -14,4 +14,7 @@ urlpatterns = [
     # /inventory/<item_id>/borrow/
     url(r'^(?P<pk>[0-9]+)/borrow/$', views.borrow, name='borrow'),
 
+    # /inventory/<username>/            Stores user's username
+    url(r'^(?P<username>[\w.@+-]+)/$', views.user_items, name='user_items'),
+
 ]
