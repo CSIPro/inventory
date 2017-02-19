@@ -10,5 +10,7 @@
 
     {# Temporary #}
     <a href="{% url 'inventory:index' %}">Go back to Inventory index.</a>
+    <hr>
+    <a href="{% url 'inventory:user_items' request.user.username %}">Ir a tu historial.</a>
 
 {% endblock %}
