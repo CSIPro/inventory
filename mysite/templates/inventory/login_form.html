@@ -4,7 +4,7 @@
 
     <h3>A user is currently logged in:</h3>
     <strong>{{ user.get_username }}</strong>
-    <a href="#">Log Out</a>
+    <a href="{% url 'logout' %}?next=/login">Log Out</a>
 
 {% else %}
 

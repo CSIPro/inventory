@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from inventory import views
 import debug_toolbar
 
-from django.contrib.auth.views import login
+from django.contrib.auth.views import login, logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,6 +28,9 @@ urlpatterns = [
 
     # Login
     url(r'^login/$', login, {'template_name': 'inventory/login_form.html'}, name='login'),
+
+    # Logout
+    url(r'^logout/$', logout, name='logout'),
 ]
 
 if settings.DEBUG:
