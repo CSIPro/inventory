@@ -20,9 +20,14 @@ from django.conf.urls.static import static
 from inventory import views
 import debug_toolbar
 
+from django.contrib.auth.views import login
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^inventory/', include('inventory.urls')),
+
+    # Login
+    url(r'^login/$', login, {'template_name': 'inventory/login_form.html'}, name='login'),
 ]
 
 if settings.DEBUG:
