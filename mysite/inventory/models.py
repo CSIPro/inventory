@@ -55,7 +55,7 @@ class ItemImages(models.Model):
 # Relates to IndividualItem on a 1-1 relationship.
 class ItemBorrowed(models.Model):
 
-    item = models.OneToOneField(IndividualItem)
+    item = models.ForeignKey(IndividualItem)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     date_borrowed = models.DateField(auto_now=True)
 

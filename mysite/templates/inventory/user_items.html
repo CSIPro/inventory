@@ -1,0 +1,17 @@
+{% if borrowed_items %}
+
+    {# item = ItemBorrowed object #}
+    {% for borrowed in borrowed_items %}
+
+        {# Sorry for this shit. #} {# ItemBorrowed -> IndividualItem -> Item #}
+        <h1>{{ borrowed.item.item.item_name }} ----- ID: {{ borrowed.item.id }}</h1>
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <h1>Todavia no has prestado ningun item! :(</h1>
+    <a href="{% url 'inventory:index' %}">Ir a CSInventario</a>
+
+{% endif %}

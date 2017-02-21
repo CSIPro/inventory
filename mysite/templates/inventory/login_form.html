@@ -1,0 +1,33 @@
+<h1>Login</h1>
+
+{% if user.is_authenticated %}
+
+    <h3>A user is currently logged in:</h3>
+    <strong>{{ user.get_username }}</strong>
+    <a href="{% url 'logout' %}?next=/login">Log Out</a>
+
+{% else %}
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+
+            <label for="{{ field.id_for_label }}" class="">
+                {{ field.label }}
+            </label>
+
+            {# This generates the actual input area. #}
+            {{ field }}
+
+        {% endfor %}
+
+        <button type="submit">Submit</button>
+    </form>
+
+{% endif %}
+
