@@ -8,8 +8,8 @@
 
 {% else %}
 
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
+    {% if form.errors %}
+        <p style="color: red">Your username and password didn't match. Please try again.</p>
     {% endif %}
 
     <form method="post">
@@ -17,7 +17,7 @@
 
         {% for field in form %}
 
-            <label for="{{ field.id_for_label }}" class="">
+            <label for="{{ field.id_for_label }}" class="" style="display: block">
                 {{ field.label }}
             </label>
 
@@ -26,7 +26,7 @@
 
         {% endfor %}
 
-        <button type="submit">Submit</button>
+        <button type="submit" style="display: block">Login</button>
     </form>
 
 {% endif %}
