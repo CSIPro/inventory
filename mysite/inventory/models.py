@@ -59,8 +59,13 @@ class ItemBorrowed(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     date_borrowed = models.DateField(auto_now=True)
 
+    # Date returned initializes to null so that we can change it once the item is returned.
+    is_returned = models.BooleanField(default=False)
+    date_returned = models.DateField(null=True, blank=True)
+
     def __str__(self):
-        return '{} se llevo un/a {} con id={}'.format(self.user, self.item.item.item_name, self.item.id)
+        return '{} se llevo un/a {} con id={}........ {} se ha devuelto.'\
+            .format(self.user, self.item.item.item_name, self.item.id, 'SI' if self.is_returned else 'NO')
 
 
 # For the IndividualItem creation.
