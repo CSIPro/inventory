@@ -29,4 +29,5 @@ $ python manage.py migrate
 ```
 Manden sus PR, etc. Si hacen cambios a los modelos, hagan otro branch y hagan ```python manage.py makemigrations``` y luego ```python manage.py migrate```.
 
-## SI VAS A AGREGAR FOTO, COMPRIMELA PRIMERO :rage2:
+## Mockups for design
+* [Home (item list)](http://i.imgur.com/DZYAYog.png)
