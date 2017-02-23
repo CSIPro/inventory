@@ -2,8 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-# 3rd party
-
 
 # CSI, Unison, Erick, etc.
 class Owner(models.Model):

@@ -21,7 +21,7 @@ def return_task(modeladmin, request, queryset):
         individual_item.is_borrowed = False
         individual_item.save()
 
-        # General Item (RasbPi, HDMi, etc)
+        # General Item (RasPi, HDMi, etc)
         # Increase available total items by 1 and subtract the currently borrowed count by 1.
         general_item = individual_item.item
         general_item.available_count += 1
@@ -33,7 +33,7 @@ def return_task(modeladmin, request, queryset):
 
 class ItemBorrowedAdmin(admin.ModelAdmin):
     #  Items that get displayed in admin panel (table)
-    list_display = ['item','user','date_borrowed','is_returned']
+    list_display = ['item', 'user', 'date_borrowed', 'is_returned']
     actions = [return_task]
 
 admin.site.register(ItemBorrowed, ItemBorrowedAdmin)
