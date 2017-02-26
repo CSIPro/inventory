@@ -1,0 +1,55 @@
+/*
+    Custom styles
+*/
+
+
+
+/* Navbar shit */
+
+input[type="search"] {
+    height: 64px !important; /* or height of nav */
+}
+/* Search bar on navbar */
+.validate {
+    margin-left: 14px !important;
+}
+
+/* Card scpecific shit */
+.card {
+    border-radius: 5% !important;
+}
+.card-action {
+    border-top: none !important;
+    padding: 20px 0 20px 15px !important;
+}
+
+.card-action > a {
+    color: black !important;
+}
+
+.available-count {
+    border-radius: 5px;
+    display: inline;
+    padding: 0 10px;
+}
+
+.border-green {
+    border: 1px solid #00E676;
+}
+.border-green:hover {
+    background-color: #00E676;
+    color: white;
+}
+.border-yellow {
+    border: 1px solid #FFEA00;
+}
+.border-yellow:hover {
+    background-color: #FFEA00;
+}
+.border-red {
+    border: 1px solid #FF1744;
+}
+.border-red:hover {
+    background-color: #FF1744;
+    color: white;
+}
