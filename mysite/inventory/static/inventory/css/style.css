@@ -39,6 +39,7 @@ input[type="search"] {
 .border-green:hover {
     background-color: #00E676;
     color: white;
+    transition: all 0.3s ease
 }
 .border-yellow {
     border: 1px solid #fbc02d ;
@@ -46,6 +47,7 @@ input[type="search"] {
 .border-yellow:hover {
     background-color: #fbc02d ;
     color: white;
+    transition: all 0.3s ease
 }
 .border-red {
     border: 1px solid #FF1744;
@@ -53,4 +55,5 @@ input[type="search"] {
 .border-red:hover {
     background-color: #FF1744;
     color: white;
+    transition: all 0.3s ease
 }

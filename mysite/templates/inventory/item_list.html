@@ -19,15 +19,7 @@
 
                             <a class="truncate" href="{% url 'inventory:detail' item.id %}"><i class="fa fa-rocket" aria-hidden="true"></i> {{ item.item_name }}</a>
                             <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                            <p class="available-count
-                            {% if item.many_left %}
-                            border-green
-                            {% elif item.normal_left %}
-                            border-yellow
-                            {% else %}
-                            border-red
-                            {% endif %}
-                            ">{{ item.available_count }}</p>
+                            <p class="available-count {% if item.many_left %}border-green{% elif item.normal_left %}border-yellow{% else %}border-red{% endif %}">{{ item.available_count }}</p>
 
                         </div>
                     </div>

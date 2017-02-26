@@ -37,3 +37,24 @@ function WidthChange(mq) {
         }
 	}
 }
+
+// On card hover (for available_count color)
+// $(".card").hover(function() {
+//     var classString = $(".available-count").attr('class');
+//     var classes = classString.split(" ");
+//     var availableColor = "";
+//     if (classes[1]==="border-green") {
+//         availableColor = "#00E676";
+//     } else if (classes[1]==="border-yellow") {
+//         availableColor = "#fbc02d";
+//     } else {
+//         availableColor = "#FF1744";
+//     }
+//
+//   $(".available-count").css({"background-color": availableColor, "color": "white"});
+//
+// }, function() {
+//
+//   $(".available-count").css({"background-color": "", "color": ""});
+//
+// });
