@@ -22,6 +22,24 @@ class Item(models.Model):
     current_borrowed = models.PositiveIntegerField()
     item_owner = models.ForeignKey(Owner)
 
+    # Less than 34% of items available to borrow.
+    def few_left(self):
+        total = self.available_count + self.current_borrowed
+        avail = self.available_count
+        return avail / total * 100 < 34
+
+    # Between 34-67% of items available to borrow.
+    def normal_left(self):
+        total = self.available_count + self.current_borrowed
+        avail = self.available_count
+        return 34 <= avail / total * 100 < 67
+
+    # More than 67% of items available to borrow.
+    def many_left(self):
+        total = self.available_count + self.current_borrowed
+        avail = self.available_count
+        return avail / total * 100 >= 67
+
     def __str__(self):
         return '{} - Disponibles:{}, Borrowed: {}'.format(self.item_name, self.available_count, self.current_borrowed)
 
