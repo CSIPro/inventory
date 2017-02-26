@@ -13,13 +13,21 @@
                     <div class="card z-depth-3">
                         <div class="card-image">
                             <img src="http://erickdelfin.me/img/placeholder1.jpg">
-                            <a href="{% url 'inventory:detail' item.id %}" class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-2"><i class="material-icons">add</i></a>
+                            <a href="{% url 'inventory:detail' item.id %}" class="waves-effect waves-light btn-floating halfway-fab waves-effect waves-light deep-purple lighten-2"><i class="material-icons">add</i></a>
                         </div>
                         <div class="card-action">
 
                             <a class="truncate" href="{% url 'inventory:detail' item.id %}"><i class="fa fa-rocket" aria-hidden="true"></i> {{ item.item_name }}</a>
                             <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                            <p class="available-count border-green">{{ item.available_count }}</p>
+                            <p class="available-count
+                            {% if item.many_left %}
+                            border-green
+                            {% elif item.normal_left %}
+                            border-yellow
+                            {% else %}
+                            border-red
+                            {% endif %}
+                            ">{{ item.available_count }}</p>
 
                         </div>
                     </div>

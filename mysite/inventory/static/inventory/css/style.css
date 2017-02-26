@@ -41,10 +41,11 @@ input[type="search"] {
     color: white;
 }
 .border-yellow {
-    border: 1px solid #FFEA00;
+    border: 1px solid #fbc02d ;
 }
 .border-yellow:hover {
-    background-color: #FFEA00;
+    background-color: #fbc02d ;
+    color: white;
 }
 .border-red {
     border: 1px solid #FF1744;
