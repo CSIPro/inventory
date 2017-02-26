@@ -1,17 +1,37 @@
 {% extends 'inventory/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-Item list
-{% endblock %}
-
 {% block body_block %}
     <h1>Item List</h1>
-    {% if items %}
-        <ul>
+
+
+        <div class="row">
+
             {% for item in items %}
-                <li><a href="{% url 'inventory:detail' item.id %}">{{ item.item_name }}</a></li>
+
+                <div class="col s12 m4 cardCol">
+                    <div class="card z-depth-3">
+                        <div class="card-image">
+                            <img src="http://erickdelfin.me/img/placeholder1.jpg">
+                            <a href="{% url 'inventory:detail' item.id %}" class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-2"><i class="material-icons">add</i></a>
+                        </div>
+                        <div class="card-action">
+
+                            <a class="truncate" href="{% url 'inventory:detail' item.id %}"><i class="fa fa-rocket" aria-hidden="true"></i> {{ item.item_name }}</a>
+                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            <p class="available-count border-green">{{ item.available_count }}</p>
+
+                        </div>
+                    </div>
+
+                    <div class="text-owner">
+                        <p><i class="fa fa-smile-o" aria-hidden="true"></i> <strong>{{ item.item_owner.owner_name }}</strong></p>
+                    </div>
+                </div>
+
             {% endfor %}
-        </ul>
-    {% endif %}
+
+        </div>
+
+
 {% endblock %}
