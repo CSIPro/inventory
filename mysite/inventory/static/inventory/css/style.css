@@ -2,6 +2,16 @@
     Custom styles
 */
 
+/* Sticky footer */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
 
 
 /* Navbar shit */
@@ -56,4 +66,14 @@ input[type="search"] {
     background-color: #FF1744;
     color: white;
     transition: all 0.3s ease
+}
+
+/* Footer */
+.social {
+    font-size: 1.5em;
+}
+.social > a {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
 }
