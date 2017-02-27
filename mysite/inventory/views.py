@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -63,7 +64,7 @@ def borrow(request, pk):
 
 # username = username gotten from user_items urlpattern
 def user_items(request, username):
-    user = request.user
+    user = User.objects.filter(username=username)
 
     borrowed_items = ItemBorrowed.objects.filter(user=user)
 
