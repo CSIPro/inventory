@@ -77,3 +77,11 @@ input[type="search"] {
     padding-right: 10px;
     color: white;
 }
+
+img {
+    pointer-events: none;
+}
+
+.halfway-fab {
+    z-index: 10 !important;
+}
