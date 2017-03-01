@@ -20,20 +20,20 @@ input[type="search"] {
     height: 64px !important; /* or height of nav */
 }
 /* Search bar on navbar */
-.validate {
+.search-validate {
     margin-left: 14px !important;
 }
 
 /* Card scpecific shit */
-.card {
+.item-card {
     border-radius: 5% !important;
 }
-.card-action {
+.item-action {
     border-top: none !important;
     padding: 20px 0 20px 15px !important;
 }
 
-.card-action > a {
+.item-action > a {
     color: black !important;
 }
 
@@ -80,8 +80,4 @@ input[type="search"] {
 
 img {
     pointer-events: none;
-}
-
-.halfway-fab {
-    z-index: 10 !important;
 }
