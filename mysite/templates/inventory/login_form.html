@@ -1,4 +1,31 @@
-<h1>Login</h1>
+{% extends 'inventory/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+    <style>
+        .input-field input[type=date]:focus + label,
+        .input-field input[type=text]:focus + label,
+        .input-field input[type=email]:focus + label,
+        .input-field input[type=password]:focus + label {
+          color: #2BBBAD;
+        }
+        .input-field input[type=date]:focus,
+        .input-field input[type=text]:focus,
+        .input-field input[type=email]:focus,
+        .input-field input[type=password]:focus {
+          border-bottom: 1.5px solid #2BBBAD;
+          box-shadow: none;
+        }
+
+        .btn-submit {
+            background-color: #5e2667;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
 
 {% if user.is_authenticated %}
 
@@ -8,26 +35,68 @@
 
 {% else %}
 
-    {% if form.errors %}
-        <p style="color: red">Your username and password didn't match. Please try again.</p>
-    {% endif %}
+    <main>
 
-    <form method="post">
-        {% csrf_token %}
+      <div class="container">
 
-        {% for field in form %}
+        <div class="row">
+            <div class="section"></div>
+            <div class="section"></div>
 
-            <label for="{{ field.id_for_label }}" class="" style="display: block">
-                {{ field.label }}
-            </label>
+            <div class="header-text col s12 m6 offset-m3" style="">
+                <img class="responsive-img" src="{% static 'inventory/img/csi.png' %}" />
 
-            {# This generates the actual input area. #}
-            {{ field }}
+                <h5 class="center-align">Log in to your account.</h5>
+            </div>
 
-        {% endfor %}
+            <div class="card col s16 m6 offset-m3 z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+                {% if form.errors %}
+                    <p class="pink-text">Your username and password didn't match. Please try again.</p>
+                {% endif %}
 
-        <button type="submit" style="display: block">Login</button>
-    </form>
+              <form class="col s12" method="post">
+                <div class='row'>
+                  <div class='col s12'>
+                  </div>
+                </div>
+
+                <div class='row'>
+                  <div class='input-field col s12'>
+{#                    <input class='validate' type='email' name='email' id='email' />#}
+                      <input placeholder="Email" class="validate" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" value="{{ field.value }}" type="text" />
+
+{#                    <label for='email'>Email</label>#}
+                      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  </div>
+                </div>
+
+                <div class='row'>
+                  <div class='input-field col s12'>
+{#                    <input class='validate' type='password' name='password' id='password' />#}
+                      <input placeholder="Password" class="validate" id="{{ field.id_for_label }}" name="{{ field.html_name }}" value="{{ field.value }}" type="password" />
+
+{#                    <label for='password'>Password</label>#}
+                      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  </div>
+                  <label style='float: right;'>
+    								<a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+    							</label>
+                </div>
+
+                <br />
+                  <div class='row'>
+                    <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect btn-submit'>Login</button>
+                  </div>
+              </form>
+            </div>
+
+
+        </div>
+
+      </div>
+    <div class="section"></div>
+    </main>
 
 {% endif %}
 
+{% endblock %}

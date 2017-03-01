@@ -19,7 +19,7 @@
     {#-----------------------------------------CSS-----------------------------------------------------#}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/lightgallery/1.3.9/css/lightgallery.min.css">
-    <link rel="stylesheet" href="{% static 'inventory/css/style.css' %}?v=0001" type="text/css">
+    <link rel="stylesheet" href="{% static 'inventory/css/style.css' %}?v=0002" type="text/css">
     {#-----------------------------------------/CSS-----------------------------------------------------#}
 
     {#-----------------------------------------SCRIPTS-----------------------------------------------------#}
@@ -28,6 +28,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/lightgallery/1.3.9/js/lightgallery.min.js"></script>
     {#-----------------------------------------/SCRIPTS-----------------------------------------------------#}
+
+    {% block styles %}
+        {# Custom styles #}
+    {% endblock %}
 
 </head>
 
@@ -49,7 +53,7 @@
                 </ul>
                 <div class="input-field right hide-on-med-and-down">
                     <i class="material-icons prefix">search</i>
-                    <input id="icon_prefix" type="text" class="validate">
+                    <input id="icon_prefix" type="text" class="validate search-validate">
                     <label for="icon_prefix" style="color: white;">Search</label>
                 </div>
 
