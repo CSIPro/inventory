@@ -27,6 +27,7 @@ def detail(request, pk):
 
 
 # pk = item_id
+@login_required
 def borrow(request, pk):
     try:
         item = Item.objects.get(pk=request.POST['item'])
