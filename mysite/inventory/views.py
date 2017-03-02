@@ -66,11 +66,11 @@ def borrow(request, pk):
 def user_items(request, username):
     user = User.objects.filter(username=username)
 
-    borrowed_items = ItemBorrowed.objects.filter(user=user)
+    borrowed_items = ItemBorrowed.objects.filter(user=user, is_returned=False)
+    history = ItemBorrowed.objects.filter(user=user, is_returned=True)
 
-    return render(request, 'inventory/user_items.html', {'borrowed_items': borrowed_items})
-
-
-# TODO: with materializecss, I can make cards with items and at the end add badges/labels
-# (green if still available, yellow if little available, and red if non, etc). I can to so
-# by creating, for example, def less_than_half() func in model, etc.
+    return render(request, 'inventory/user_items.html', {
+        'borrowed_items': borrowed_items,
+        'history': history,
+        'username': username,
+    })

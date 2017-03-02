@@ -1,17 +1,102 @@
-{% if borrowed_items %}
+{% extends 'inventory/base.html' %}
+{% load staticfiles %}
 
-    {# item = ItemBorrowed object #}
-    {% for borrowed in borrowed_items %}
+{% block title %}User{% endblock %}
 
-        {# Sorry for this shit. #} {# ItemBorrowed -> IndividualItem -> Item #}
-        <h1>{{ borrowed.item.item.item_name }} ----- ID: {{ borrowed.item.id }}</h1>
-        <hr>
+{% block styles %}
+    <style>
+        body {
+            background: #F7F7F9;
+        }
 
-    {% endfor %}
+    .long-card {
+        padding: 10px !important;
+        padding-bottom: 1px !important;
+    }
+    </style>
+{% endblock %}
 
-{% else %}
+{% block body_block %}
 
-    <h1>Todavia no has prestado ningun item! :(</h1>
-    <a href="{% url 'inventory:index' %}">Ir a CSInventario</a>
+    <div class="section"></div>
+    <div class="section"></div>
 
-{% endif %}
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="card small">
+                <div class="card-image">
+                    <img src="{% static 'inventory/img/material.png' %}">
+                    <span class="card-title">{{ username }}</span>
+                </div>
+                <div class="card-content">
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m8">
+
+            {% if borrowed_items %}
+
+                {# item = ItemBorrowed object #}
+                {% for borrowed in borrowed_items %}
+                    <div class="card">
+                        <div class="card-content long-card">
+
+                            <div class="row">
+                                <div class="col s6 m6">
+                                    {# Sorry for this shit. #} {# ItemBorrowed -> IndividualItem -> Item #}
+                                    <p><strong>{{ borrowed.item.item.item_name }}</strong></p>
+                                    <p class="grey-text">{{ borrowed.date_borrowed }}</p>
+                                </div>
+
+                                <div class="col s6 m6">
+                                    <p class="grey-text">Item id: {{ borrowed.item.id }}</p>
+                                    <p class="grey-text">Owner: {{ borrowed.item.item.item_owner.owner_name }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <h5 class="center-align">History</h5>
+
+                {# item = ItemBorrowed object #}
+                {% for history_item in history %}
+                    <div class="card">
+                        <div class="card-content long-card">
+
+                            <div class="row">
+                                <div class="col s6 m6">
+                                    {# Sorry for this shit. #} {# ItemBorrowed -> IndividualItem -> Item #}
+                                    <p><strong>{{ history_item.item.item.item_name }}</strong></p>
+                                    <p class="grey-text">Returned: {{ history_item.date_returned }}</p>
+                                </div>
+
+                                <div class="col s6 m6">
+                                    <p class="grey-text">Item id: {{ history_item.item.id }}</p>
+                                    <p class="grey-text">Owner: {{ history_item.item.item.item_owner.owner_name }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+
+                <h1>Todavia no has prestado ningun item! :(</h1>
+                <a href="{% url 'inventory:index' %}">Ir a CSInventario</a>
+
+    {% endif %}
+
+        </div>
+
+    </div>
+
+{% endblock %}
