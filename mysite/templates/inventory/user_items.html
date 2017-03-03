@@ -8,7 +8,6 @@
         body {
             background: #F7F7F9;
         }
-
     .long-card {
         padding: 10px !important;
         padding-bottom: 1px !important;
@@ -26,14 +25,35 @@
             <div class="card small">
                 <div class="card-image">
                     <img src="{% static 'inventory/img/material.png' %}">
-                    <span class="card-title">{{ username }}</span>
+                    <span class="card-title"><i class="fa fa-user"></i> {{ username }}</span>
                 </div>
                 <div class="card-content">
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
+
+                    <div class="row">
+
+                        <div class="col s3 center-align">
+                            <i class="material-icons">access_time</i> {{ current }}
+                        </div>
+                        <div class="col s3 center-align">
+                            <i class="material-icons">history</i> {{ history_count }}
+                        </div>
+                        <div class="col s3 center-align">
+                            <i class="material-icons">done_all</i> {{ total }}
+                        </div>
+                        <div class="col s3 center-align">
+{#                            <i class="material-icons">history</i> 18#}
+                            <i class="activator material-icons" style="cursor: pointer">more_vert</i></span>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="card-action">
-                    <a href="#">This is a link</a>
+                  <a href="#">This is a link</a>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                  <p>Here is some more information about this product that is only revealed once clicked on.</p>
                 </div>
             </div>
         </div>
@@ -64,7 +84,8 @@
                     </div>
                 {% endfor %}
 
-                <h5 class="center-align">History</h5>
+                <hr>
+{#                <h5 class="center-align">History</h5>#}
 
                 {# item = ItemBorrowed object #}
                 {% for history_item in history %}
@@ -98,5 +119,7 @@
         </div>
 
     </div>
+
+    <div class="section"></div>
 
 {% endblock %}

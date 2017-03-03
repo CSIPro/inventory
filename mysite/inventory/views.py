@@ -69,8 +69,15 @@ def user_items(request, username):
     borrowed_items = ItemBorrowed.objects.filter(user=user, is_returned=False)
     history = ItemBorrowed.objects.filter(user=user, is_returned=True)
 
+    total = len(borrowed_items) + len(history)
+    current_borrowed = len(borrowed_items)
+    history_count = len(history)
+
     return render(request, 'inventory/user_items.html', {
         'borrowed_items': borrowed_items,
         'history': history,
         'username': username,
+        'total': total,
+        'current': current_borrowed,
+        'history_count': history_count,
     })
