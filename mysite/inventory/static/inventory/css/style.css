@@ -1,6 +1,9 @@
 /*
     Custom styles
 */
+body {
+    background: #F7F7F9;
+}
 
 /* Sticky footer */
 body {
