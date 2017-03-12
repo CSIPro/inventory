@@ -111,9 +111,9 @@
             <!-- Borrow Button -->
             <div class="row">
                 <div class="col s12">
-                    <a class="waves-effect waves-light btn-large deep-purple lighten-2" style="width: 100%">
+                    <button data-target="modal1" class="waves-effect waves-light btn-large deep-purple lighten-2" style="width: 100%">
                         <i class="fa fa-hand-rock-o right"></i>Borrow Item
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -121,4 +121,18 @@
     </div>
 
     <div class="section"></div>
+
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+
 {% endblock %}

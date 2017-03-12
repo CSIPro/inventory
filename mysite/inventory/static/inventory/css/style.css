@@ -80,3 +80,15 @@ input[type="search"] {
     padding-right: 10px;
     color: white;
 }
+
+.modal {
+    top: 35% !important;
+}
+/* For modals to be 50% width if screen is > param */
+@media only screen and (min-width : 768px) {
+
+    .modal {
+        width: 35% !important;
+    }
+
+}
