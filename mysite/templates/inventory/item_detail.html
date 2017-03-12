@@ -16,6 +16,9 @@
         left: 15px;
         width: 100%;
     }
+    .image-text:hover {
+        cursor: text;
+    }
     .image-text span {
         color: white;
         background: rgba(0, 0, 0, 0.7);
@@ -59,9 +62,23 @@
 
             <div class="image">
 
-                <img src="http://i68.tinypic.com/24yyfc9.jpg" alt="" class="responsive-img z-depth-4">
+                <img src="http://i68.tinypic.com/24yyfc9.jpg" alt="" class="materialboxed responsive-img z-depth-4">
                 <p class="image-text"><span>{{ item.item_name }}</span></p>
 
+            </div>
+
+            <div class="section"><hr style="border-top: 1px solid lightgray;"></div>
+
+            <div class="row">
+                {# {% for img in item.itemimages_set.all %} --- For future use #}
+                <div class="col s3">
+
+                    <div class="img-thumb">
+                        <img class="materialboxed responsive-img z-depth-4" src="http://i63.tinypic.com/1447alg.jpg">
+                    </div>
+
+                </div>
+                {# {% endfor %} --- For future use #}
             </div>
 
         </div>
@@ -70,16 +87,16 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title" style="display: inline"><strong>{{ item.item_name }}</strong></span>
-                    <span class="new badge" data-badge-caption="Available" style="display: inline">4</span>
+                    <span class="new badge {% if item.many_left %}green accent-3{% elif item.normal_left %}yellow darken-2{% else %}red accent-3{% endif %}" data-badge-caption="Available" style="display: inline">{{ item.available_count }}</span>
                     <div class="card-action"></div>
-
-                    <p class="text-attr"><i class="fa fa-file-text-o " aria-hidden="true"></i> Description</p>
-                    <p class="text-info grey-text">{{ item.item_description }}</p>
-
-                    <br>
 
                     <p class="text-attr"><i class="fa fa-smile-o" aria-hidden="true"></i> Owner</p>
                     <p class="text-info grey-text">{{ item.item_owner.owner_name }}</p>
+
+                    <br>
+
+                    <p class="text-attr"><i class="fa fa-file-text-o " aria-hidden="true"></i> Description</p>
+                    <p class="text-info grey-text">{{ item.item_description }}</p>
 
                     <br>
 
@@ -94,7 +111,7 @@
             <!-- Borrow Button -->
             <div class="row">
                 <div class="col s12">
-                    <a class="waves-effect waves-light btn-large" style="width: 100%">
+                    <a class="waves-effect waves-light btn-large deep-purple lighten-2" style="width: 100%">
                         <i class="fa fa-hand-rock-o right"></i>Borrow Item
                     </a>
                 </div>
