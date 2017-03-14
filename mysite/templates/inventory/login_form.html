@@ -1,33 +1,110 @@
-<h1>Login</h1>
+{% extends 'inventory/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+    <style>
+        .input-field input:focus + label,
+        .input-field input:focus + label,
+        .input-field input:focus + label,
+        .input-field input:focus + label {
+          color: #2BBBAD;
+        }
+        .input-field input:focus,
+        .input-field input:focus,
+        .input-field input:focus,
+        .input-field input:focus {
+          border-bottom: 1.5px solid #2BBBAD;
+          box-shadow: none;
+        }
+
+        .btn-submit {
+            background-color: #5e2667;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+
+    <main>
+
+        <div class="container">
 
 {% if user.is_authenticated %}
 
-    <h3>A user is currently logged in:</h3>
-    <strong>{{ user.get_username }}</strong>
-    <a href="{% url 'logout' %}?next=/login">Log Out</a>
+            <div class="row">
+                <div class="section"></div>
+                <div class="section"></div>
+
+                <div class="header-text col s12 m6 offset-m3" style="">
+                    <img class="responsive-img" src="{% static 'inventory/img/csi.png' %}" />
+                </div>
+
+                <div class="card col s16 m6 offset-m3 z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+                    <h5>User <a href="{% url 'inventory:user_items' user.username %}">{{ user.username }}</a> is currently logged in.</h5>
+
+                    <div class="section"></div>
+                    <div class='row'>
+                        <a href="{% url 'logout' %}?next=/login" class='col s12 btn btn-large waves-effect btn-submit'>Logout</a>
+                    </div>
+
+                </div>
+
+
+            </div>
 
 {% else %}
 
-    {% if form.errors %}
-        <p style="color: red">Your username and password didn't match. Please try again.</p>
-    {% endif %}
+            <div class="row">
+                <div class="section"></div>
+                <div class="section"></div>
 
-    <form method="post">
-        {% csrf_token %}
+                <div class="header-text col s12 m6 offset-m3" style="">
+                    <img class="responsive-img" src="{% static 'inventory/img/csi.png' %}" />
 
-        {% for field in form %}
+                    <h5 class="center-align">Log in to your account.</h5>
+                </div>
 
-            <label for="{{ field.id_for_label }}" class="" style="display: block">
-                {{ field.label }}
-            </label>
+                <div class="card col s16 m6 offset-m3 z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+                    {% if form.errors %}
+                        <p class="pink-text">Your username and password didn't match. Please try again.</p>
+                    {% endif %}
 
-            {# This generates the actual input area. #}
-            {{ field }}
+                    <form class="col s12" method="post">
+                        {% csrf_token %}
 
-        {% endfor %}
+                        {% for field in form %}
 
-        <button type="submit" style="display: block">Login</button>
-    </form>
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                {# <input class='validate' type='email' name='email' id='email' />#}
+{#                              <input class="validate" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" type="password" />#}
+                                {{ field }}
+
+                                <label for="{{ field.id_for_label }}">{{ field.html_name }}</label>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+{#                        <label>#}
+{#                            <a class='pink-text' href='#!'><b>Forgot Password?</b></a>#}
+{#                        </label>#}
+
+                        <div class='row'>
+                            <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect btn-submit'>Login</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
 
 {% endif %}
 
+        </div>
+        <div class="section"></div>
+    </main>
+
+{% endblock %}

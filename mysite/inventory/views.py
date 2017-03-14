@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -64,13 +65,20 @@ def borrow(request, pk):
 
 # username = username gotten from user_items urlpattern
 def user_items(request, username):
-    user = request.user
+    user = User.objects.filter(username=username)
 
-    borrowed_items = ItemBorrowed.objects.filter(user=user)
+    borrowed_items = ItemBorrowed.objects.filter(user=user, is_returned=False)
+    history = ItemBorrowed.objects.filter(user=user, is_returned=True)
 
-    return render(request, 'inventory/user_items.html', {'borrowed_items': borrowed_items})
+    total = len(borrowed_items) + len(history)
+    current_borrowed = len(borrowed_items)
+    history_count = len(history)
 
-
-# TODO: with materializecss, I can make cards with items and at the end add badges/labels
-# (green if still available, yellow if little available, and red if non, etc). I can to so
-# by creating, for example, def less_than_half() func in model, etc.
+    return render(request, 'inventory/user_items.html', {
+        'borrowed_items': borrowed_items,
+        'history': history,
+        'username': username,
+        'total': total,
+        'current': current_borrowed,
+        'history_count': history_count,
+    })

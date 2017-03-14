@@ -1,32 +1,138 @@
 {% extends 'inventory/base.html' %}
+{% load staticfiles %}
 {% load thumbnail %}
 
+{% block styles %}
+    <style>
+
+    .image {
+        position: relative;
+        width: 100%;
+    }
+    .image-text {
+        font-size: 3em;
+        position: absolute;
+        top: 0;
+        left: 15px;
+        width: 100%;
+    }
+    .image-text:hover {
+        cursor: text;
+    }
+    .image-text span {
+        color: white;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .image-text {
+            font-size: 1.5em;
+            top: 5px;
+            left: 5px;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        .image-text {
+            font-size: 1.5em;
+            top: 5px;
+            left: 5px;
+        }
+    }
+
+    .text-attr {
+        font-size: 1.5em;
+    }
+    .text-info {
+        font-size: 1.2em;
+    }
+
+    </style>
+{% endblock %}
+
 {% block body_block %}
-    {% if item %}
+    <div class="section"></div>
+    <div class="section"></div>
 
-    <h1>{{ item.item_name }}</h1>
-        <ul>
-            <li>Description: {{ item.item_description }}</li>
-            <li>Available: {{ item.available_count }}</li>
-            <li>Currently borrowed: {{ item.current_borrowed }}</li>
-            <li>Owner: {{ item.item_owner.owner_name }}</li>
-        </ul>
+    {# Item info and shit #}
+    <div class="row">
 
-        <div id="aniimated-thumbnials">
-            {% for img in item.itemimages_set.all %}
+        <div class="col m12 l8">
 
-                <a href="{{ img.img.url }}">
-                    <img src="{% thumbnail img.img 100x100 crop %}" alt="" border="5" style="border-color: black">
-                </a>
+            <div class="image">
 
-            {% endfor %}
+                <img src="http://i68.tinypic.com/24yyfc9.jpg" alt="" class="materialboxed responsive-img z-depth-4">
+                <p class="image-text"><span>{{ item.item_name }}</span></p>
+
+            </div>
+
+            <div class="section"><hr style="border-top: 1px solid lightgray;"></div>
+
+            <div class="row">
+                {# {% for img in item.itemimages_set.all %} --- For future use #}
+                <div class="col s3">
+
+                    <div class="img-thumb">
+                        <img class="materialboxed responsive-img z-depth-4" src="http://i63.tinypic.com/1447alg.jpg">
+                    </div>
+
+                </div>
+                {# {% endfor %} --- For future use #}
+            </div>
+
         </div>
 
-    <form action="{% url 'inventory:borrow' item.id %}" method="post">
-        {% csrf_token %}
+        <div class="col m12 l4">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title" style="display: inline"><strong>{{ item.item_name }}</strong></span>
+                    <span class="new badge {% if item.many_left %}green accent-3{% elif item.normal_left %}yellow darken-2{% else %}red accent-3{% endif %}" data-badge-caption="Available" style="display: inline">{{ item.available_count }}</span>
+                    <div class="card-action"></div>
 
-        <input type="hidden" name="item" value="{{ item.id }}" />
-        <button type="submit">Borrow this item</button>
+                    <p class="text-attr"><i class="fa fa-smile-o" aria-hidden="true"></i> Owner</p>
+                    <p class="text-info grey-text">{{ item.item_owner.owner_name }}</p>
 
-    {% endif %}
+                    <br>
+
+                    <p class="text-attr"><i class="fa fa-file-text-o " aria-hidden="true"></i> Description</p>
+                    <p class="text-info grey-text">{{ item.item_description }}</p>
+
+                    <br>
+
+                    <p class="text-attr"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Currently Borrowed</p>
+                    <p class="text-info grey-text">{{ item.current_borrowed }}</p>
+
+
+
+                </div>
+            </div>
+
+            <!-- Borrow Button -->
+            <div class="row">
+                <div class="col s12">
+                    <button data-target="modal1" class="waves-effect waves-light btn-large deep-purple lighten-2" style="width: 100%">
+                        <i class="fa fa-hand-rock-o right"></i>Borrow Item
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section"></div>
+
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+
 {% endblock %}

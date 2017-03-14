@@ -1,0 +1,94 @@
+/*
+    Custom styles
+*/
+body {
+    background: #F7F7F9;
+}
+
+/* Sticky footer */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+
+/* Navbar shit */
+
+input[type="search"] {
+    height: 64px !important; /* or height of nav */
+}
+/* Search bar on navbar */
+.search-validate {
+    margin-left: 14px !important;
+}
+
+/* Card scpecific shit */
+.item-card {
+    border-radius: 5% !important;
+}
+.item-action {
+    border-top: none !important;
+    padding: 20px 0 20px 15px !important;
+}
+
+.item-action > a {
+    color: black !important;
+}
+
+.available-count {
+    border-radius: 5px;
+    display: inline;
+    padding: 0 10px;
+}
+
+.border-green {
+    border: 1px solid #00E676;
+}
+.border-green:hover {
+    background-color: #00E676;
+    color: white;
+    transition: all 0.3s ease
+}
+.border-yellow {
+    border: 1px solid #fbc02d ;
+}
+.border-yellow:hover {
+    background-color: #fbc02d ;
+    color: white;
+    transition: all 0.3s ease
+}
+.border-red {
+    border: 1px solid #FF1744;
+}
+.border-red:hover {
+    background-color: #FF1744;
+    color: white;
+    transition: all 0.3s ease
+}
+
+/* Footer */
+.social {
+    font-size: 1.5em;
+}
+.social > a {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+}
+
+.modal {
+    top: 35% !important;
+}
+/* For modals to be 50% width if screen is > param */
+@media only screen and (min-width : 768px) {
+
+    .modal {
+        width: 35% !important;
+    }
+
+}

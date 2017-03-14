@@ -1,17 +1,169 @@
-{% if borrowed_items %}
+{% extends 'inventory/base.html' %}
+{% load staticfiles %}
 
-    {# item = ItemBorrowed object #}
-    {% for borrowed in borrowed_items %}
+{% block title %}User{% endblock %}
 
-        {# Sorry for this shit. #} {# ItemBorrowed -> IndividualItem -> Item #}
-        <h1>{{ borrowed.item.item.item_name }} ----- ID: {{ borrowed.item.id }}</h1>
-        <hr>
+{% block styles %}
+    <style>
+        body {
+            background: #F7F7F9;
+        }
+    .long-card {
+        padding: 10px !important;
+        padding-bottom: 1px !important;
+    }
+    .header-card {
+        padding: 10px !important;
+        padding-bottom: 0 !important;
+    }
+    .header-card-text {
+        position: absolute;
+        margin-top: 1px !important;
+    }
+    .user-img {
+        border: 0.1em solid white;
+        border-radius: 50% !important;
+    }
+    </style>
+{% endblock %}
 
-    {% endfor %}
+{% block body_block %}
 
-{% else %}
+    <div class="section"></div>
+    <div class="section"></div>
 
-    <h1>Todavia no has prestado ningun item! :(</h1>
-    <a href="{% url 'inventory:index' %}">Ir a CSInventario</a>
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="card small">
+                <div class="card-image">
+                    <img src="{% static 'inventory/img/material.png' %}">
+                    <div class="row card-title valign-wrapper">
+                        <div class="col s4">
+                            {# Here will be a condition, if user profile img exists, place that, else, place user icon #}
+                            <img src="http://erickdelfin.me/img/me.jpg" alt="" class="user-img responsive-img">
+{#                            <i class="fa fa-user"></i>#}
+                        </div>
+                        <div class="col s8">
+                            <p>{{ username }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
 
-{% endif %}
+                    <div class="row">
+
+                        <div class="col s3 center-align">
+                            <i class="material-icons">access_time</i> {{ current }}
+                        </div>
+                        <div class="col s3 center-align">
+                            <i class="material-icons">history</i> {{ history_count }}
+                        </div>
+                        <div class="col s3 center-align">
+                            <i class="material-icons">done_all</i> {{ total }}
+                        </div>
+                        <div class="col s3 center-align">
+{#                            <i class="material-icons">history</i> 18#}
+                            <i class="activator material-icons" style="cursor: pointer">more_vert</i></span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card-action">
+                  <i class="fa fa-file-excel-o"></i><a href="#"> Export Registers</a>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m8">
+
+            <div class="card deep-purple lighten-2" style="color: white">
+                <div class="card-content header-card">
+                    <div class="row">
+                        <div class="col s12">
+                            <i class="material-icons">access_time</i>&nbsp; <span class="header-card-text">  Current Items</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if borrowed_items %}
+
+                {# item = ItemBorrowed object #}
+                {% for borrowed in borrowed_items %}
+                    <div class="card">
+                        <div class="card-content long-card">
+
+                            <div class="row">
+                                <div class="col s6 m6">
+                                    {# Sorry for this shit. #} {# ItemBorrowed -> IndividualItem -> Item #}
+                                    <a href="{% url 'inventory:detail' borrowed.item.item.id %}">
+                                        <p><strong>{{ borrowed.item.item.item_name }}</strong></p>
+                                    </a>
+                                    <p class="grey-text">Borrowed: {{ borrowed.date_borrowed }}</p>
+                                </div>
+
+                                <div class="col s6 m6">
+                                    <p class="grey-text">Item id: {{ borrowed.item.id }}</p>
+                                    <p class="grey-text">Owner: {{ borrowed.item.item.item_owner.owner_name }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="section"></div>
+
+                <div class="card deep-purple lighten-2" style="color: white">
+                    <div class="card-content header-card">
+                        <div class="row">
+                            <div class="col s12">
+                                <i class="material-icons">history</i>&nbsp; <span class="header-card-text">  History</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# history_item = ItemBorrowed object #}
+                {% for history_item in history %}
+                    <div class="card">
+                        <div class="card-content long-card">
+
+                            <div class="row">
+                                <div class="col s6 m6">
+                                    {# Sorry for this shit. #} {# ItemBorrowed -> IndividualItem -> Item #}
+                                    <a href="{% url 'inventory:detail' history_item.item.item.id %}">
+                                        <p><strong>{{ history_item.item.item.item_name }}</strong></p>
+                                    </a>
+                                    <p class="grey-text">Returned: {{ history_item.date_returned }}</p>
+                                </div>
+
+                                <div class="col s6 m6">
+                                    <p class="grey-text">Item id: {{ history_item.item.id }}</p>
+                                    <p class="grey-text">Owner: {{ history_item.item.item.item_owner.owner_name }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+
+                <h1>Todavia no has prestado ningun item! :(</h1>
+                <a href="{% url 'inventory:index' %}">Ir a CSInventario</a>
+
+    {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="section"></div>
+
+{% endblock %}
