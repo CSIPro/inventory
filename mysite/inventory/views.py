@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Item, ItemBorrowed
+from .models import Item, ItemBorrowed, UserProfile
 
 
 # For /inventory/
@@ -66,6 +66,7 @@ def borrow(request, pk):
 # username = username gotten from user_items urlpattern
 def user_items(request, username):
     user = User.objects.filter(username=username)
+    profile = UserProfile.objects.get(user=user)
 
     borrowed_items = ItemBorrowed.objects.filter(user=user, is_returned=False)
     history = ItemBorrowed.objects.filter(user=user, is_returned=True)
@@ -78,6 +79,7 @@ def user_items(request, username):
         'borrowed_items': borrowed_items,
         'history': history,
         'username': username,
+        'profile_pic': profile.pic,
         'total': total,
         'current': current_borrowed,
         'history_count': history_count,
