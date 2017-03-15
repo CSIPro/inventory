@@ -62,7 +62,8 @@
 
             <div class="image">
 
-                <img src="http://i68.tinypic.com/24yyfc9.jpg" alt="" class="materialboxed responsive-img z-depth-4">
+                {# Gets first image off item's image_set #}
+                <img src="{{ item.itemimages_set.all.first.img.url }}" alt="" class="materialboxed responsive-img z-depth-4">
                 <p class="image-text"><span>{{ item.item_name }}</span></p>
 
             </div>
@@ -70,15 +71,15 @@
             <div class="section"><hr style="border-top: 1px solid lightgray;"></div>
 
             <div class="row">
-                {# {% for img in item.itemimages_set.all %} --- For future use #}
-                <div class="col s3">
+                {% for img in images %}
+                    <div class="col s3">
 
-                    <div class="img-thumb">
-                        <img class="materialboxed responsive-img z-depth-4" src="http://i63.tinypic.com/1447alg.jpg">
+                        <div class="img-thumb">
+                            <img class="materialboxed responsive-img z-depth-4" src="{{ img.img.url }}">
+                        </div>
+
                     </div>
-
-                </div>
-                {# {% endfor %} --- For future use #}
+                {% endfor %}
             </div>
 
         </div>

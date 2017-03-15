@@ -8,9 +8,9 @@ from .models import Item, ItemBorrowed, UserProfile
 # For /inventory/
 def index(request):
     item_list = Item.objects.all()
-    context_dict = {'items': item_list}
+    context = {'items': item_list}
 
-    return render(request, 'inventory/item_list.html', context=context_dict)
+    return render(request, 'inventory/item_list.html', context)
 
 
 # pk = item_id
@@ -20,8 +20,11 @@ def detail(request, pk):
     except Item.DoesNotExist:
         raise Http404('Item no existe.')  # TODO: Planning on redirecting to custom 404 page in future
 
+    images = item.itemimages_set.all()[1:]
+
     context = {
         'item': item,
+        'images': images,
     }
 
     return render(request, 'inventory/item_detail.html', context)
