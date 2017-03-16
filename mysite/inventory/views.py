@@ -4,11 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Item, ItemBorrowed, UserProfile
 
+from django.db.models import Q
+
 
 # For /inventory/
 def index(request):
-    item_list = Item.objects.all()
-    context = {'items': item_list}
+    items = Item.objects.all()
+
+    # For search form
+    query = request.GET.get('q')
+    if query:
+        items = items.filter(
+            Q(item_name__icontains=query)
+        ).distinct()
+
+    context = {'items': items}
 
     return render(request, 'inventory/item_list.html', context)
 
