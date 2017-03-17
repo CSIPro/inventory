@@ -123,16 +123,22 @@
 
     <div class="section"></div>
 
-
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+            <h4>Are you sure, motherfucker?</h4>
+            <p>The item you are about to borrow is {{ item.item_name }}</p>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
+
+        <form action="{% url 'inventory:borrow' item.id %}" method="post">
+        {% csrf_token %}
+            <div class="modal-footer">
+                <input type="hidden" name="item" value="{{ item.id }}" />
+                <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">
+                    Agree
+                </button>
+            </div>
+        </form>
     </div>
 
 
