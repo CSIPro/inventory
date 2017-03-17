@@ -39,6 +39,15 @@
 
     <header>
 
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'inventory:user_items' request.user.username %}">Profile</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href="{% url 'logout' %}?next=/login"><i class="fa fa-sign-out"></i> Log out</a></li>
+        </ul>
+
         {# NAVBAR #}
         <nav>
             <div class="nav-wrapper deep-purple lighten-2">
@@ -49,7 +58,17 @@
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{% url 'inventory:index' %}"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="#"><i class="fa fa-user"></i> User</a></li>
+
+                    {% if request.user.is_authenticated %}
+                        <li><a class="dropdown-button" href="#" data-activates="dropdown1">
+                            <i class="fa fa-user"></i>
+                            {{ request.user.username }}
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log in</a></li>
+                    {% endif %}
+
                 </ul>
                 <form>
                     <div class="input-field right hide-on-med-and-down">
