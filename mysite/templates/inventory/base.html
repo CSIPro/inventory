@@ -45,10 +45,10 @@
 
             <div class="container">
 
-                <a href="#" class="brand-logo">CSInventario</a>
+                <a href="{% url 'inventory:index' %}" class="brand-logo">CSInventario</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="{% url 'inventory:index' %}"><i class="fa fa-home"></i> Home</a></li>
                     <li><a href="#"><i class="fa fa-user"></i> User</a></li>
                 </ul>
                 <form>
@@ -63,13 +63,16 @@
 
             <ul class="side-nav" id="mobile-demo">
                 <li>
-                    <div class="input-field" style="color: black;">
-                        <i class="material-icons prefix">search</i>
-                        <input id="icon_prefix" type="text" class="validate">
-                        <label for="icon_prefix">Search</label>
-                    </div>
+                    {# Side-nav search bar #}
+                    <form>
+                    <div class="input-field">
+                            <i class="material-icons prefix" style="color: black;">search</i>
+                            <input id="icon_prefix" name="q" type="text" value="{{ request.GET.q }}" class="validate search-validate" style="color: black">
+                            <label for="icon_prefix" style="color: black">Search</label>
+                        </div>
+                    </form>
                 </li>
-                <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="{% url 'inventory:index' %}"><i class="fa fa-home"></i> Home</a></li>
                 <li><a href="#"><i class="fa fa-user"></i> User</a></li>
             </ul>
             </div>
