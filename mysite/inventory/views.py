@@ -18,7 +18,7 @@ def index(request):
             Q(item_name__icontains=query)
         ).distinct()
 
-    context = {'items': items}
+    context = {'items': items, 'query': query}
 
     return render(request, 'inventory/item_list.html', context)
 

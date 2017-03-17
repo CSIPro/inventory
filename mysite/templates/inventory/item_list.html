@@ -8,6 +8,9 @@
         <div class="row">
 
         {% if items %}
+            {% if query %}
+                <h5>Results for <a>"{{ query }}".</a></h5>
+            {% endif %}
 
             {% for item in items %}
 
@@ -37,7 +40,19 @@
 
         {% else %}
 
-            <h1>No items match your query.</h1>
+            <!-- Empty search result -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 center-align">
+                            <h5>No results were found for <a>"{{ query }}"</a> :(</h5>
+                            <button class="waves-effect waves-light btn-large deep-purple lighten-2">
+                                <i class="fa fa-home"></i> Go Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         {% endif %}
 
