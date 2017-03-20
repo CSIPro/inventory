@@ -9,20 +9,27 @@ from django.db.models import Q
 import csv
 
 
+# Function for re-using of pagination feature in different views.
+def paginate(page, paginator, queryset):
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        queryset = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        queryset = paginator.page(paginator.num_pages)
+
+    return queryset
+
+
 # For /inventory/
 def index(request):
     items = Item.objects.all()
     paginator = Paginator(items, 12)
 
     page = request.GET.get('page')
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        items = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        items = paginator.page(paginator.num_pages)
+    items = paginate(page, paginator, items)
 
     context = {'items': items}
 
@@ -31,7 +38,7 @@ def index(request):
 
 # Search item
 def item_search(request):
-    items = []
+    items = Item.objects.all()
 
     # For search form
     query = request.GET.get('q')
@@ -39,6 +46,10 @@ def item_search(request):
         items = Item.objects.filter(
             Q(item_name__icontains=query)
         ).distinct()
+
+    paginator = Paginator(items, 12)
+    page = request.GET.get('page')
+    items = paginate(page, paginator, items)
 
     context = {'items': items, 'query': query}
 
