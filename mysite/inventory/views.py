@@ -2,8 +2,9 @@ from django.contrib.auth.models import User
 from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Item, ItemBorrowed, UserProfile
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from .models import Item, ItemBorrowed, UserProfile
 from django.db.models import Q
 import csv
 
@@ -11,6 +12,18 @@ import csv
 # For /inventory/
 def index(request):
     items = Item.objects.all()
+    paginator = Paginator(items, 12)
+
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        items = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        items = paginator.page(paginator.num_pages)
+
     context = {'items': items}
 
     return render(request, 'inventory/item_list.html', context)
