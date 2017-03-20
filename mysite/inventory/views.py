@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Item, ItemBorrowed, UserProfile
 
 from django.db.models import Q
+import csv
 
 
 # For /inventory/
@@ -36,7 +37,7 @@ def detail(request, pk):
     try:
         item = Item.objects.get(pk=pk)
     except Item.DoesNotExist:
-        raise Http404('Item no existe.')  # TODO: Planning on redirecting to custom 404 page in future
+        raise Http404('Item doesn\'t exist.')
 
     images = item.itemimages_set.all()[1:]
 
@@ -54,7 +55,7 @@ def borrow(request, pk):
     try:
         item = Item.objects.get(pk=request.POST['item'])
     except Item.DoesNotExist:
-        raise Http404('Item no existe.')  # TODO: Planning on redirecting to custom 404 page in future
+        raise Http404('Item doesn\'t exist.')
 
     else:
 
@@ -105,3 +106,32 @@ def user_items(request, username):
         'current': current_borrowed,
         'history_count': history_count,
     })
+
+
+# Export feature for user profile (exports user's registers to csv)
+def csv_export(request, username):
+    user = User.objects.filter(username=username)
+    registers = ItemBorrowed.objects.filter(user=user)
+
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(username)
+
+    writer = csv.writer(response)
+    # CSV Header
+    writer.writerow([
+        'Item',
+        'Date Borrowed',
+        'Is Returned?',
+        'Date Returned'
+    ])
+    # Rows
+    for obj in registers:
+        writer.writerow([
+            obj.item.item.item_name,
+            obj.date_borrowed,
+            obj.is_returned,
+            obj.date_returned,
+        ])
+
+    return response

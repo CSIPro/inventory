@@ -20,4 +20,7 @@ urlpatterns = [
     # /inventory/<username>/            Stores user's username
     url(r'^user/(?P<username>[\w.@+-]+)/$', views.user_items, name='user_items'),
 
+    # /inventory/<username>/csv/        Export user's history to csv
+    url(r'^user/(?P<username>[\w.@+-]+)/csv/$', views.csv_export, name='csv'),
+
 ]
