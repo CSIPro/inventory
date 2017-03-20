@@ -62,7 +62,8 @@
 
             <div class="image">
 
-                <img src="http://i68.tinypic.com/24yyfc9.jpg" alt="" class="materialboxed responsive-img z-depth-4">
+                {# Gets first image off item's image_set #}
+                <img src="{{ item.itemimages_set.all.first.img.url }}" alt="" class="materialboxed responsive-img z-depth-4">
                 <p class="image-text"><span>{{ item.item_name }}</span></p>
 
             </div>
@@ -70,15 +71,15 @@
             <div class="section"><hr style="border-top: 1px solid lightgray;"></div>
 
             <div class="row">
-                {# {% for img in item.itemimages_set.all %} --- For future use #}
-                <div class="col s3">
+                {% for img in images %}
+                    <div class="col s3">
 
-                    <div class="img-thumb">
-                        <img class="materialboxed responsive-img z-depth-4" src="http://i63.tinypic.com/1447alg.jpg">
+                        <div class="img-thumb">
+                            <img class="materialboxed responsive-img z-depth-4" src="{{ img.img.url }}">
+                        </div>
+
                     </div>
-
-                </div>
-                {# {% endfor %} --- For future use #}
+                {% endfor %}
             </div>
 
         </div>
@@ -122,16 +123,25 @@
 
     <div class="section"></div>
 
-
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+            <h4>Are you sure, motherfucker?</h4>
+            <p>The item you are about to borrow is {{ item.item_name }}</p>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
+
+        <form action="{% url 'inventory:borrow' item.id %}" method="post">
+        {% csrf_token %}
+            <div class="modal-footer">
+                <input type="hidden" name="item" value="{{ item.id }}" />
+                <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">
+                    Yes
+                </button>
+                <a class="modal-close waves-effect waves-red btn-flat">
+                    No
+                </a>
+            </div>
+        </form>
     </div>
 
 

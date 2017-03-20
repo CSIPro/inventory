@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.contrib.auth.models import User
+
 
 # CSI, Unison, Erick, etc.
 class Owner(models.Model):
@@ -84,5 +86,23 @@ class ItemBorrowed(models.Model):
             .format(self.user, self.item.item.item_name, self.item.id, 'SI' if self.is_returned else 'NO')
 
 
+# User shit
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
+
+
+# Temporary storage... thinking about moving this model to seperate app to
+# keep all the relevant shit in it's group and modularity.
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    pic = models.ImageField(null=True, blank=True, upload_to=user_directory_path)
+
+    def __str__(self):
+        return self.user.username
+
+
 # For the IndividualItem creation.
 from .signals import create_individual_item
+# For User object creation => UserProfile
+from .signals import create_user_profile, save_user_profile

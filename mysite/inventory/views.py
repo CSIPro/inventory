@@ -1,16 +1,59 @@
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Item, ItemBorrowed
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from .models import Item, ItemBorrowed, UserProfile
+from django.db.models import Q
+import csv
+
+
+# Function for re-using of pagination feature in different views.
+def paginate(page, paginator, queryset):
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        queryset = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        queryset = paginator.page(paginator.num_pages)
+
+    return queryset
 
 
 # For /inventory/
 def index(request):
-    item_list = Item.objects.all()
-    context_dict = {'items': item_list}
+    items = Item.objects.all()
+    paginator = Paginator(items, 12)
 
-    return render(request, 'inventory/item_list.html', context=context_dict)
+    page = request.GET.get('page')
+    items = paginate(page, paginator, items)
+
+    context = {'items': items}
+
+    return render(request, 'inventory/item_list.html', context)
+
+
+# Search item
+def item_search(request):
+    items = Item.objects.all()
+
+    # For search form
+    query = request.GET.get('q')
+    if query:
+        items = Item.objects.filter(
+            Q(item_name__icontains=query)
+        ).distinct()
+
+    paginator = Paginator(items, 12)
+    page = request.GET.get('page')
+    items = paginate(page, paginator, items)
+
+    context = {'items': items, 'query': query}
+
+    return render(request, 'inventory/item_list.html', context)
 
 
 # pk = item_id
@@ -18,10 +61,13 @@ def detail(request, pk):
     try:
         item = Item.objects.get(pk=pk)
     except Item.DoesNotExist:
-        raise Http404('Item no existe.')  # TODO: Planning on redirecting to custom 404 page in future
+        raise Http404('Item doesn\'t exist.')
+
+    images = item.itemimages_set.all()[1:]
 
     context = {
         'item': item,
+        'images': images,
     }
 
     return render(request, 'inventory/item_detail.html', context)
@@ -33,7 +79,7 @@ def borrow(request, pk):
     try:
         item = Item.objects.get(pk=request.POST['item'])
     except Item.DoesNotExist:
-        raise Http404('Item no existe.')  # TODO: Planning on redirecting to custom 404 page in future
+        raise Http404('Item doesn\'t exist.')
 
     else:
 
@@ -66,6 +112,7 @@ def borrow(request, pk):
 # username = username gotten from user_items urlpattern
 def user_items(request, username):
     user = User.objects.filter(username=username)
+    profile = UserProfile.objects.get(user=user)
 
     borrowed_items = ItemBorrowed.objects.filter(user=user, is_returned=False)
     history = ItemBorrowed.objects.filter(user=user, is_returned=True)
@@ -78,7 +125,37 @@ def user_items(request, username):
         'borrowed_items': borrowed_items,
         'history': history,
         'username': username,
+        'profile_pic': profile.pic,
         'total': total,
         'current': current_borrowed,
         'history_count': history_count,
     })
+
+
+# Export feature for user profile (exports user's registers to csv)
+def csv_export(request, username):
+    user = User.objects.filter(username=username)
+    registers = ItemBorrowed.objects.filter(user=user)
+
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(username)
+
+    writer = csv.writer(response)
+    # CSV Header
+    writer.writerow([
+        'Item',
+        'Date Borrowed',
+        'Is Returned?',
+        'Date Returned'
+    ])
+    # Rows
+    for obj in registers:
+        writer.writerow([
+            obj.item.item.item_name,
+            obj.date_borrowed,
+            obj.is_returned,
+            obj.date_returned,
+        ])
+
+    return response

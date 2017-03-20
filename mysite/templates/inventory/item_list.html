@@ -7,13 +7,18 @@
 
         <div class="row">
 
+        {% if items %}
+            {% if query %}
+                <h5>Results for <a>"{{ query }}"</a>.</h5>
+            {% endif %}
+
             {% for item in items %}
 
                 <div class="col s12 m4 cardCol">
                     <div class="card item-card z-depth-3">
                         <div class="card-image">
 
-                            <img class="materialboxed" src="http://erickdelfin.me/img/placeholder1.jpg">
+                            <img class="materialboxed" src="{{ item.itemimages_set.all.first.img.url }}">
 
                             <a href="{% url 'inventory:detail' item.id %}" class="waves-effect waves-light btn-floating halfway-fab waves-effect waves-light deep-purple lighten-2"><i class="material-icons">add</i></a>
                         </div>
@@ -32,6 +37,52 @@
                 </div>
 
             {% endfor %}
+
+            <div class="row">
+                <div class="col s12 right-align">
+
+                    <ul class="pagination">
+                        {% if items.has_previous %}
+                            <li class="waves-effect"><a href="?page={{ items.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                        {% else %}
+                            <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+                        {% endif %}
+
+                        {% for x in items.paginator.page_range %}
+                            {% if items.number == x %}
+                                <li class="active deep-purple lighten-2"><a>{{ x }}</a></li>
+                            {% else %}
+                                <li class="waves-effect"><a href="?page={{ x }}">{{ x }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if items.has_next %}
+                            <li class="waves-effect"><a href="?page={{ items.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                        {% else %}
+                            <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+
+        {% else %}
+
+            <!-- Empty search result -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 center-align">
+                            <h5>No results were found for <a>"{{ query }}"</a> :(</h5>
+                            <a href="{% url 'inventory:index' %}" class="waves-effect waves-light btn-large deep-purple lighten-2">
+                                <i class="fa fa-home"></i> Go Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
 
         </div>
 
