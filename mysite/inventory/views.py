@@ -10,11 +10,19 @@ from django.db.models import Q
 # For /inventory/
 def index(request):
     items = Item.objects.all()
+    context = {'items': items}
+
+    return render(request, 'inventory/item_list.html', context)
+
+
+# Search item
+def item_search(request):
+    items = []
 
     # For search form
     query = request.GET.get('q')
     if query:
-        items = items.filter(
+        items = Item.objects.filter(
             Q(item_name__icontains=query)
         ).distinct()
 
