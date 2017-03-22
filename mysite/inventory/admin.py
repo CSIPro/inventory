@@ -11,7 +11,7 @@ admin.site.register(ItemImages)
 
 
 # Action to return item in admin and add return date.
-def return_task(modeladmin, request, queryset):
+def return_item(modeladmin, request, queryset):
     for borrowed_item in queryset:
 
         borrowed_item.is_returned = True
@@ -32,10 +32,34 @@ def return_task(modeladmin, request, queryset):
         borrowed_item.save()
 
 
+# Item was borrowed by error or unintentionally
+def soft_return(modeladmin, request, queryset):
+    for borrowed_item in queryset:
+
+        # Individual item (id=1, etc)
+        individual_item = borrowed_item.item
+        individual_item.is_borrowed = False
+        individual_item.save()
+
+        # General Item (RasPi, HDMi, etc)
+        # Since this is soft_return, difference with normal return_item is that
+        # times_borrowed will be decremented since it was borrowed by accident/error
+        general_item = individual_item.item
+
+        general_item.times_borrowed -= 1
+
+        general_item.available_count += 1
+        general_item.current_borrowed -= 1
+        general_item.save()
+
+        # ItemBorrowed record/object is deleted
+        borrowed_item.delete()
+
+
 class ItemBorrowedAdmin(admin.ModelAdmin):
     #  Items that get displayed in admin panel (table)
     list_display = ['item', 'user', 'date_borrowed', 'is_returned']
-    actions = [return_task]
+    actions = [return_item, soft_return]
 
 admin.site.register(ItemBorrowed, ItemBorrowedAdmin)
 

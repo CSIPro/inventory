@@ -100,9 +100,10 @@ def borrow(request, pk):
         borrowed = ItemBorrowed(item=unborrowed_individual_item, user=request.user)
         borrowed.save()
 
-        # Changing item's attributes
+        # Changing general item's attributes
         item.available_count -= 1
         item.current_borrowed += 1
+        item.times_borrowed += 1
 
         item.save()
 
