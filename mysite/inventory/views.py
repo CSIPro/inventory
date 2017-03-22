@@ -25,7 +25,7 @@ def paginate(page, paginator, queryset):
 
 # For /inventory/
 def index(request):
-    items = Item.objects.all()
+    items = Item.objects.all().order_by('-times_borrowed')
     paginator = Paginator(items, 12)
 
     page = request.GET.get('page')
@@ -38,7 +38,7 @@ def index(request):
 
 # Search item
 def item_search(request):
-    items = Item.objects.all()
+    items = Item.objects.all().order_by('-times_borrowed')
 
     # For search form
     query = request.GET.get('q')
@@ -100,9 +100,10 @@ def borrow(request, pk):
         borrowed = ItemBorrowed(item=unborrowed_individual_item, user=request.user)
         borrowed.save()
 
-        # Changing item's attributes
+        # Changing general item's attributes
         item.available_count -= 1
         item.current_borrowed += 1
+        item.times_borrowed += 1
 
         item.save()
 

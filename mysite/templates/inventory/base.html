@@ -53,15 +53,6 @@
 
     <header>
 
-        <!-- Dropdown Structure -->
-        <ul id="dropdown1" class="dropdown-content">
-            {% if request.user.is_authenticated %}
-                <li><a href="{% url 'inventory:user_items' request.user.username %}">Profile</a></li>
-            {% endif %}
-            <li class="divider"></li>
-            <li><a href="{% url 'logout' %}?next=/login"><i class="fa fa-sign-out"></i> Log out</a></li>
-        </ul>
-
         {# NAVBAR #}
         <nav>
             <div class="nav-wrapper deep-purple lighten-2">
@@ -74,7 +65,7 @@
                     <li><a href="{% url 'inventory:index' %}"><i class="fa fa-home"></i> Home</a></li>
 
                     {% if request.user.is_authenticated %}
-                        <li><a class="dropdown-button" href="#" data-activates="dropdown1">
+                        <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-beloworigin="true">
                             <i class="fa fa-user"></i>
                             {{ request.user.username }}
                             <i class="material-icons right">arrow_drop_down</i>
@@ -82,6 +73,15 @@
                     {% else %}
                         <li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log in</a></li>
                     {% endif %}
+
+                    <!-- Dropdown Structure -->
+                    <ul id="dropdown1" class="dropdown-content">
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'inventory:user_items' request.user.username %}"><i class="fa fa-list-alt"></i> Profile</a></li>
+                        {% endif %}
+                        <li class="divider"></li>
+                        <li><a href="{% url 'logout' %}?next=/login"><i class="fa fa-sign-out"></i> Log out</a></li>
+                    </ul>
 
                 </ul>
 
@@ -109,8 +109,30 @@
                         </div>
                     </form>
                 </li>
-                <li><a href="{% url 'inventory:index' %}"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href="#"><i class="fa fa-user"></i> User</a></li>
+                <li><a href="{% url 'inventory:index' %}" class="waves-effect waves-purple"><i class="fa fa-2x fa-home"></i> Home</a></li>
+
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            {% if request.user.is_authenticated %}
+                                <a href="#" class="collapsible-header waves-effect waves-purple">
+                                    <i class="fa fa-user"></i> {{ request.user.username }}
+                                    <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log in</a>
+                            {% endif %}
+
+                            <div class="collapsible-body">
+                                <ul>
+                                    {% if request.user.is_authenticated %}<li><a href="{% url 'inventory:user_items' request.user.username %}">Profile</a></li>{% endif %}
+                                    <li><a href="{% url 'logout' %}?next=/login">Log out</a></li>
+                                </ul>
+                            </div>
+
+                        </li>
+                    </ul>
+                </li>
             </ul>
             </div>
         </nav>

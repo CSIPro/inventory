@@ -12,9 +12,9 @@ $ virtualenv myvenv
 $ source venv/Scripts/activate
 $ pip install -r requirements.txt
 
-$ python manage.py collectstatic
+$ python manage.py migrate
 ```
-No se les olvide el ```python manage.py collectstatic```. Si no lo hacen van a tener errores.
+No se les olvide el ```python manage.py migrate```. Si no lo hacen van a tener errores (probablemente).
 
 Ésto es para instalar las dependencias en un ambiente virtual. Es opcional, si quieren instalar todo global, ahí está el último comando. Si van a agregar otra cosa, háganlo en otro branch y agreguenlo a ```requirements.txt```.
 

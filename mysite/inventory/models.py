@@ -21,7 +21,8 @@ class Item(models.Model):
     item_name = models.CharField(max_length=85)
     item_description = models.CharField(max_length=250)
     available_count = models.PositiveIntegerField()
-    current_borrowed = models.PositiveIntegerField()
+    current_borrowed = models.PositiveIntegerField(default=0)
+    times_borrowed = models.PositiveIntegerField(default=0)
     item_owner = models.ForeignKey(Owner)
 
     # Less than 34% of items available to borrow.
