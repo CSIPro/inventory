@@ -112,8 +112,7 @@ def borrow(request, pk):
 
 # username = username gotten from user_items urlpattern
 def user_items(request, username):
-    user = User.objects.filter(username=username)
-    profile = UserProfile.objects.get(user=user)
+    user = User.objects.get(username=username)
 
     borrowed_items = ItemBorrowed.objects.filter(user=user, is_returned=False)
     history = ItemBorrowed.objects.filter(user=user, is_returned=True)
@@ -125,8 +124,7 @@ def user_items(request, username):
     return render(request, 'inventory/user_items.html', {
         'borrowed_items': borrowed_items,
         'history': history,
-        'username': username,
-        'profile_pic': profile.pic,
+        'user': user,
         'total': total,
         'current': current_borrowed,
         'history_count': history_count,
