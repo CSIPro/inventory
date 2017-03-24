@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Item, ItemBorrowed, UserProfile
 from django.db.models import Q
 import csv
+from django.core.mail import send_mail  # For email sending
 
 
 # Function for re-using of pagination feature in different views.
@@ -106,6 +107,15 @@ def borrow(request, pk):
         item.times_borrowed += 1
 
         item.save()
+
+        # Whenever borrowed item, send email
+        send_mail(
+            '{} has borrowed a {}'.format(request.user, item.item_name),
+            'Item ID: {}'.format(unborrowed_individual_item.id),
+            'noreply@erickdelfin.me',
+            ['e_delfin_23@yahoo.com'],
+            fail_silently=False
+        )
 
         return render(request, 'inventory/admin.html', {'individual_item': unborrowed_individual_item})
 
