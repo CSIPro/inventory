@@ -86,9 +86,7 @@ def borrow(request, pk):
 
         all_unborrowed_items = item.individualitem_set.filter(is_borrowed=False)
 
-        # Checks if there are any unborrowed items. If not, redirect to error page, for now. (Or can generate modal)
-        if not all_unborrowed_items:
-            return render(request, 'inventory/no_items.html', {'item': item})
+        # If there are no unborrowed items, the button to borrowe will be disabled (won't even go through to this view)
 
         # Gets the first item that's not borrowed yet.
         unborrowed_individual_item = all_unborrowed_items[0]

@@ -43,6 +43,9 @@ class Item(models.Model):
         avail = self.available_count
         return avail / total * 100 >= 67
 
+    def none_left(self):
+        return self.available_count == 0
+
     def __str__(self):
         return '{} - Disponibles:{}, Borrowed: {}'.format(self.item_name, self.available_count, self.current_borrowed)
 
