@@ -1,18 +1,55 @@
 {% extends 'inventory/base.html' %}
+{% block title %}Borrow{% endblock %}
 
 {% block body_block %}
 
-    <h1>Acercate al root-admin overlord Erick Delfin para que te de tu {{ individual_item.item.item_name }}.</h1>
+    <div class="section"></div>
+    <div class="section"></div>
 
-        <ul>
-            <li>Item ID: {{ individual_item.id }}</li>
-        </ul>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col s12 center-align">
+                    <h4>Go to <a href="{% url 'inventory:user_items' 'admin' %}">Erick</a> (Admin) to pick up your <a href="{% url 'inventory:detail' individual_item.item.id %}">{{ individual_item.item.item_name }}</a>!</h4>
 
-    <h1>Cuando vayas a devolver el objeto, se lo debes regresar a m'lord Erick!</h1>
+                    <div class="section"></div>
+                    <div class="section"></div>
 
-    {# Temporary #}
-    <a href="{% url 'inventory:index' %}">Go back to Inventory index.</a>
-    <hr>
-    <a href="{% url 'inventory:user_items' request.user.username %}">Ir a tu historial.</a>
+                    <h4>Your Item ID:</h4>
+                    <div class="row">
+                        <div class="col s12 m4 offset-m4">
+                            <div class="card deep-purple lighten-2">
+                                <div class="card-content white-text">
+                                    <h3>{{ individual_item.id }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section"></div>
+
+                    <h5>Once your done with your {{ individual_item.item.item_name }}, head over to Erick and return it.</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="s12" style="display: inline">
+
+            <a href="{% url 'inventory:index' %}" class="waves-effect waves-light btn-large deep-purple lighten-2 right" style="margin-left: 10px !important;">
+                <i class="fa fa-home"></i> Go Home
+            </a>
+
+            <a href="{% url 'inventory:user_items' request.user.username %}" class="waves-effect waves-light btn-large deep-purple lighten-2 right">
+                <i class="fa fa-list-alt"></i> My Profile
+            </a>
+
+        </div>
+    </div>
+
+    <div class="section"></div>
+    <div class="section"></div>
 
 {% endblock %}
