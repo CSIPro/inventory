@@ -19,12 +19,16 @@ def create_individual_item(sender, instance, created, **kwargs):
 
 # -----------------------------------------------------------------------
 # User shit that can be moved to another app.
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         UserProfile.objects.create(user=instance)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.userprofile.save()
 
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.userprofile.save()
+# The reason this is commented, was cause there was conflicts with user registration.
+# When creating new user, this created a UserProfile, so I wasn't able to create the one
+# with the profile pic in registration.

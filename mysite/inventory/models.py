@@ -109,4 +109,4 @@ class UserProfile(models.Model):
 # For the IndividualItem creation.
 from .signals import create_individual_item
 # For User object creation => UserProfile
-from .signals import create_user_profile, save_user_profile
+# from .signals import create_user_profile, save_user_profile

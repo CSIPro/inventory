@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^inventory/', include('inventory.urls')),
 
+    # Register
+    url(r'^register/$', views.register, name='register'),
+
     # Login
     url(r'^login/$', login, {'template_name': 'inventory/login_form.html'}, name='login'),
 

@@ -1,0 +1,118 @@
+{% extends 'inventory/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Register{% endblock %}
+
+{% block styles %}
+    <style>
+        .input-field input:focus + label,
+        .input-field input:focus + label,
+        .input-field input:focus + label,
+        .input-field input:focus + label {
+          color: #2BBBAD;
+        }
+        .input-field input:focus,
+        .input-field input:focus,
+        .input-field input:focus,
+        .input-field input:focus {
+          border-bottom: 1.5px solid #2BBBAD;
+          box-shadow: none;
+        }
+
+        .btn-submit {
+            background-color: #5e2667;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+
+    <main>
+
+        <div class="container">
+
+        {% if user.is_authenticated %}
+
+            <div class="row">
+                <div class="section"></div>
+                <div class="section"></div>
+
+                <div class="header-text col s12 m6 offset-m3" style="">
+                    <img class="responsive-img" src="{% static 'inventory/img/csi.png' %}" />
+                </div>
+
+                <div class="card col s12 m6 offset-m3 z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+                    <h5>User <a href="{% url 'inventory:user_items' user.username %}">{{ user.username }}</a> is currently logged in.</h5>
+
+                    <div class="section"></div>
+                    <div class='row'>
+                        <a href="{% url 'logout' %}?next=/login" class='col s12 btn btn-large waves-effect btn-submit'>Logout</a>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        {% else %}
+
+            <div class="row">
+                <div class="section"></div>
+                <div class="section"></div>
+
+                <div class="header-text col s12 m6 offset-m3">
+                    <img class="responsive-img" src="{% static 'inventory/img/csi.png' %}" />
+
+                    <h5 class="center-align">Register</h5>
+                </div>
+
+                <div class="card col s12 m6 offset-m3 z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0 48px; border: 1px solid #EEE;">
+                    {% if user_form.errors %}
+                        <p class="pink-text">Something went wrong, please try again!</p>
+                    {% elif profile_form.erros %}
+                        <p class="pink-text">Image couldn't be uploaded, please try again!</p>
+                    {% endif %}
+
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {% for field in user_form %}
+
+                            <div class='row'>
+                                <div class='input-field col s12'>
+                                    {{ field }}
+
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        {% for field in profile_form %}
+
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <div class="file-field input-field" style="margin-bottom: 20px">
+                                <div class="btn">
+                                    <span>File</span>
+                                    {{ field }}
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+                        <div class="row">
+                            <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect btn-submit'>Register</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        {% endif %}
+
+        </div>
+        <div class="section"></div>
+    </main>
+
+{% endblock %}
