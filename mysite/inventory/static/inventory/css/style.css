@@ -113,3 +113,22 @@ input[type="search"] {
     }
 
 }
+
+.input-field input:focus + label,
+.input-field input:focus + label,
+.input-field input:focus + label,
+.input-field input:focus + label {
+    color: #2BBBAD;
+}
+.input-field input:focus,
+.input-field input:focus,
+.input-field input:focus,
+.input-field input:focus {
+    border-bottom: 1.5px solid #2BBBAD;
+    box-shadow: none;
+}
+
+.btn-submit {
+    background-color: #5e2667;
+    margin-top: 20px;
+}
