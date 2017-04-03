@@ -29,6 +29,7 @@ def paginate(page, paginator, queryset):
 
 
 # For /inventory/
+@login_required
 def index(request):
     items = Item.objects.all().order_by('-times_borrowed')
     paginator = Paginator(items, 12)
@@ -42,6 +43,7 @@ def index(request):
 
 
 # Search item
+@login_required
 def item_search(request):
     items = Item.objects.all().order_by('-times_borrowed')
 
@@ -62,6 +64,7 @@ def item_search(request):
 
 
 # pk = item_id
+@login_required
 def detail(request, pk):
     try:
         item = Item.objects.get(pk=pk)
@@ -123,6 +126,7 @@ def borrow(request, pk):
 
 
 # username = username gotten from user_items urlpattern
+@login_required
 def user_items(request, username):
     user = User.objects.get(username=username)
 
@@ -144,6 +148,7 @@ def user_items(request, username):
 
 
 # Export feature for user profile (exports user's registers to csv)
+@login_required
 def csv_export(request, username):
     user = User.objects.filter(username=username)
     registers = ItemBorrowed.objects.filter(user=user)
