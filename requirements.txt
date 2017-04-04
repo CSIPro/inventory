@@ -7,7 +7,7 @@ olefile==0.44
 packaging==16.8
 Pillow==4.0.0
 pyparsing==2.1.10
+python-decouple==3.0
 six==1.10.0
 easy-thumbnails==2.3
 whitenoise==3.3.0
-django_debug_toolbar==1.6
