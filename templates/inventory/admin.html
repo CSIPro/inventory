@@ -11,6 +11,7 @@
             <div class="row">
                 <div class="col s12 center-align">
                     <h4>Go to <a href="{% url 'inventory:user_items' 'admin' %}">Erick</a> (Admin) to pick up your <a href="{% url 'inventory:detail' individual_item.item.id %}">{{ individual_item.item.item_name }}</a>!</h4>
+                    <h6>Once your done with your {{ individual_item.item.item_name }}, head over to Erick and return it.</h6>
 
                     <div class="section"></div>
                     <div class="section"></div>
@@ -27,9 +28,6 @@
                     </div>
 
                     <div class="section"></div>
-
-                    <h5>Once your done with your {{ individual_item.item.item_name }}, head over to Erick and return it.</h5>
-
                 </div>
             </div>
         </div>
