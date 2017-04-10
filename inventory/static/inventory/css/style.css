@@ -39,7 +39,9 @@ main {
 
 
 /* Navbar shit */
-
+.brand-logo {
+    font-family: 'Pattaya', sans-serif;
+}
 input[type="search"] {
     height: 64px !important; /* or height of nav */
 }
@@ -67,6 +69,7 @@ input[type="search"] {
     padding: 0 10px;
 }
 
+/* Item list shit */
 .border-green {
     border: 1px solid #00E676;
 }
@@ -114,6 +117,7 @@ input[type="search"] {
 
 }
 
+/* Login page shit */
 .input-field input:focus + label,
 .input-field input:focus + label,
 .input-field input:focus + label,

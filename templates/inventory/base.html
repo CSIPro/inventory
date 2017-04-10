@@ -15,7 +15,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pattaya" rel="stylesheet">
 
     {#-----------------------------------------CSS-----------------------------------------------------#}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
@@ -60,7 +61,7 @@
 
             <div class="container">
 
-                <a href="{% url 'inventory:index' %}" class="brand-logo">CSInventario</a>
+                <a href="{% url 'inventory:index' %}" class="brand-logo">CSInventory</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{% url 'inventory:index' %}"><i class="fa fa-home"></i> Home</a></li>
@@ -121,7 +122,7 @@
                                     <i class="material-icons right">arrow_drop_down</i>
                                 </a>
                             {% else %}
-                                <a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log in</a>
+                                <a href="{% url 'login' %}"><i class="fa fa-2x fa-sign-in"></i> Log in</a>
                             {% endif %}
 
                             <div class="collapsible-body">
@@ -160,7 +161,7 @@
     <div class="container">
         <div class="row">
             <div class="col m12 s12 footer-content center-align">
-                <h5 class="white-text">Created by CSIPro</h5>
+                <h5 class="white-text"><img src="{% static 'inventory/img/logo.png' %}" alt="CSInventory" height="45px"></h5>
                 <div class="social">
                     <a href="https://github.com/CSIPro" target="_blank"><i class="fa fa-github"></i></a>
                     <a href="https://twitter.com/CSIPro_Dev" target="_blank"><i class="fa fa-twitter"></i></a>
