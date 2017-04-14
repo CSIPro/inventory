@@ -24,13 +24,19 @@ body {
 }
 
 #status {
-	width:200px;
-	height:200px;
 	position:absolute;
 	left:50%; /* centers the loading animation horizontally one the screen */
 	top:50%; /* centers the loading animation vertically one the screen */
-    background: url(https://media.giphy.com/media/xUPGcj4X1HqFKpxtza/giphy.gif) no-repeat center;
-    margin:-100px 0 0 -100px; /* is width and height divided by two */
+    width: 60px;
+    height: 60px;
+    margin: -42px 0 0 -12px;
+    background: #9575cd;
+    transform: rotate(45deg);
+    animation: spin 1s infinite linear;
+}
+@keyframes spin {
+	0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(360deg); }
 }
 
 main {
