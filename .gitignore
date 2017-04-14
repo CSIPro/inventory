@@ -90,5 +90,5 @@ ENV/
 # PyCharm shit
 .idea/
 
-# Environment variables
-.env
+# local db env
+local_settings.py
