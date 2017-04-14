@@ -2,6 +2,7 @@
 
 ## Requerimientos
  * Django >= 1.10
+ * psycopg2 (PostgreSQL)
 
 ## Instalación
 Den sus clones y sus ward y luego:
