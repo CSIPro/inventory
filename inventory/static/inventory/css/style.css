@@ -27,9 +27,9 @@ body {
 	position:absolute;
 	left:50%; /* centers the loading animation horizontally one the screen */
 	top:50%; /* centers the loading animation vertically one the screen */
-    width: 60px;
-    height: 60px;
-    margin: -42px 0 0 -12px;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
     background: #9575cd;
     transform: rotate(45deg);
     animation: spin 1s infinite linear;
